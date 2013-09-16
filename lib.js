@@ -1,0 +1,3 @@
+function save (argument) {
+	// body...
+}
