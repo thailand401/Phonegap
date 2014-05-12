@@ -1,11 +1,3049 @@
-<html>
-	<link type="text/css" href="bootstrap.min.css" rel="stylesheet">
-	<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
-	<body>
-		<input id="datas" type="text" class="input-medium search-query">
-  		<button type="button" class="btn" onclick="save();">Save Data</button>
-  		<button type="button" class="btn" onclick="get();">Get Data</button>
-  		<textarea id="debug" rows="20" style="width:100%;"></textarea>
-	</body>
-	<script type="text/javascript" src="lib.js"></script>
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <title>Kitchen Sink</title>
+    <script id="microloader" type="text/javascript" src="touch/microloader/development.js"></script>
+    <script src="phonegap.js"></script>
+  
+    <script type="text/javascript" src="resources/js/prototype.js"></script>
+    <script type="text/javascript" src="resources/js/date.format.js"></script>
+    <script type="text/javascript" src="resources/js/slider.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.min.1.7.1.js"></script>
+    <script type="text/javascript" src="resources/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="resources/js/mColorPicker.js"></script>
+    <script id="microloader" type="text/javascript" src="resources/js/init.js"></script>
+    
+    <script type="text/javascript" src="resources/js/validation.js"></script>
+    <script type="text/javascript" src="resources/js/js.js"></script>
+    <script type="text/javascript" src="resources/js/form.js"></script>
+
+ <script type="text/javascript" src="resources/js/lightbox.js"></script>
+ 
+    <script type="text/javascript" src="resources/js/sociallogin.js"></script>
+
+    
+    <style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+#nav a {
+	font-family: TypoLatinserif-BoldRegular;
+}
+a {
+	color: #ff0819;
+	text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: inherit;
+}
+#megamenu a {
+	color: #ff0819;
+	text-decoration: none;
+}
+#nav li.over a, #nav a:hover {
+	background: #ff0819;
+}
+#nav li.active a {
+	background: #ff0819;
+}
+#nav .sub-wrapper {
+	border-color: #ff0819 #ACACAC #ACACAC;
+}
+.content-home ul li p {
+	color: #c0c0c0;
+}
+.mt-footer-static ul li a {
+	color: #ff0819;
+}
+.footer-static-title h2 {
+	color: #c0c0c0;
+}
+
+</style>
+  <link rel="stylesheet" href="resources/css/genericons.css">
+    <script type="text/javascript" src="resources/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="resources/js/spectrum.js"></script>
+   
+    <script type="text/javascript" src="resources/js/fabric.js"></script>
+    <script type="text/javascript" src="resources/js/allfonts.js"></script>
+    <script type="text/javascript" src="resources/js/college.cufonfonts.js"></script>
+    <script type="text/javascript" src="resources/js/droid-sans-mono.cufonfonts.js"></script>
+    <script type="text/javascript" src="resources/js/eraser.cufonfonts.js"></script>
+    <script type="text/javascript" src="resources/js/gaussian-blur.cufonfonts.js"></script>
+    <script type="text/javascript" src="resources/js/onomato-shark.cufonfonts.js"></script>
+    <script type="text/javascript" src="resources/js/vanilla.cufonfonts.js"></script>
+    <script type="text/javascript" src="resources/js/western.cufonfonts.js"></script>
+    <script type="text/javascript" src="resources/js/api.js"></script>
+    <script type="text/javascript" src="resources/js/toolbar.min.js"></script>
+    <script type="text/javascript" src="resources/js/paintapp.min.js"></script>
+    <script type="text/javascript" src="resources/js/group.js"></script>
+    <script type="text/javascript" src="resources/js/html5-canvas-paint-bucket.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.msgBox.js"></script>
+   
+
+    <script type="text/javascript">
+    
+  
+	 var items = 0;
+	 var someForm1;
+	 var filename = '';
+    var listGroup1 = [new GroupLayer(true, 0), new GroupLayer(false, 1), new GroupLayer(false, 2)];
+    var listGroup2 = [new GroupLayer(true, 0), new GroupLayer(false, 1), new GroupLayer(false, 2)];
+    var current_group_layer = 0;
+   
+     
+      $j('#layer-trash').hide();
+      $j('#layer-add').show();
+      
+      $j('#block-layer').html('<div onclick="selectLayer(0);" id="layer-0" class="even layer-item selected"><a href="javascript:void(0);">Layer 1</a><a href="javascript:void(0);" class="eye eye-on"><img onclick="changeVisible(this, 0);" src="resources/images/eye-on.png" height="" /></a></div>');
+    
+  
+     
+      var json_front = ''  ; layer = 1; 
+    var img_code_front = '';  var img_code_back = '';
+  
+	// //////////////////////////////
+	  jQuery('#img-done-front').css('top', 300);
+	 ////////////////////////////////
+	 
+	 
+    function load_canvas() { 
+	//checkConnection();
+	
+   //  var arr = [
+           //   ['thumb_mens_plus_crew1200.png','thumb_mens_plus_crew_back1200.png' ,  '$12.00','1']
+             // [ 'front.jpg' , 'back.jpg', '$15.00','1']
+       //   ];
+          
+   	jQuery('#fontSelector').attr('value',  'Eraser Regular');
+		
+    var count = 0;
+  
+   var old_w = 5000;
+  var old_h = 5000;
+
+ 
+  
+  if(Ext.os.is.Phone)
+  {
+	   var new_w = $j('#main-design-contain').height();
+ 	var new_h = (new_w * old_h) / old_w;
+  }
+  else if(Ext.os.is.Tablet || Ext.os.is.Desktop)
+  {
+	   var new_w = $j('#main-design-contain').height();
+	   new_w = (new_w*85)/100;
+	var new_h = new_w;
+  }
+	
+
+ 
+   $j('#ImageSelect-1').width(new_w);
+  $j('#myCanvas-1').attr('width', new_w);
+  $j('#myCanvas-1').attr('height', new_h);
+   
+    
+   listGroup1 = [new GroupLayer(true, 0), new GroupLayer(false, 1), new GroupLayer(false, 2)];
+    listGroup2 = [new GroupLayer(true, 0), new GroupLayer(false, 1), new GroupLayer(false, 2)];
+   current_group_layer = 0;
+    //  var  img_code_front; var  img_code_back;
+    
+      layer = 1; 
+      if(count == 0)
+      {
+          
+    canvas = new fabric.Canvas('myCanvas-1', { renderOnAddition: false,  selection: false });
+	
+	
+      fabric.Text.async = false;
+      paintAppGlobal = new PaintApp(canvas); 
+     api = new RemoteApi(paintAppGlobal);
+      toolbar = new PaintAppToolbar(paintAppGlobal);
+	
+      paintAppGlobal.setDrawToolbar(toolbar);
+	
+	  /////////////////////////////////
+	  
+	  
+          var n=paintAppGlobal.canvas.getActiveObject();
+  if(n) n.set("fontFamily",jQuery("#fontSelector").val());
+  paintAppGlobal.canvas.renderAll();
+   jQuery('#fontSize').attr('value', 64);
+		 
+		    var e=paintAppGlobal.getCanvas().getActiveObject();
+  e&&(e.setFontsize( jQuery('#fontSize').val()),
+
+  paintAppGlobal.canvas.renderAll()) 
+ 
+	
+      paintAppGlobal.canvas.setOverlayImage('resources/images/thumb_mens_plus_crew_back1200.png', function(){
+       // paintAppGlobal.canvas.renderAll();
+	  // console.log('1');
+      paintAppGlobal.canvas.renderAll();
+        json_back = JSON.stringify(paintAppGlobal.canvas);
+		 img_code_back = paintAppGlobal.canvas.toDataURL('png');
+		
+		  paintAppGlobal.canvas.backgroundImage = '';
+		   
+    paintAppGlobal.canvas.overlayImage = null;
+	paintAppGlobal.canvas.renderAll();
+  
+    
+	   
+	       paintAppGlobal.canvas.setOverlayImage('resources/images/thumb_mens_plus_crew1200.png', function(){
+		
+				 paintAppGlobal.canvas.renderAll();
+		
+      count = 1;
+    
+        });
+   
+      });    
+	  
+	  
+      $j('#layer-trash').hide();
+      $j('#layer-add').show();
+     $j('#canvas_tmp').attr('width', new_w);
+    $j('#canvas_tmp').attr('height', new_h);
+   $j('#canvas').attr('width', new_w);
+   $j('#canvas').attr('height', new_h);
+    }
+      else
+      {
+          return;
+      }
+	  
+
+//console.log();
+
+
+ //  paintAppGlobal.canvas.setstyle();
+    };
+     
+  
+  
+   function font_select()
+   {
+	var n=paintAppGlobal.canvas.getActiveObject();
+  if(n) n.set("fontFamily",jQuery("#fontSelector").val());
+  paintAppGlobal.canvas.renderAll();   
+   }
+  
+  
+  
+     
+  </script>
+    <script type="text/javascript">
+     
+      
+  function draw_tool(){
+    var e=toolbar;
+  
+    jQuery("#simpleDrawToolbar").buttonset(),
+    jQuery("#dropper").click(function(){
+     
+      
+      var mode = jQuery("#pen_dropper").val(); 
+      if(mode === "pen"){    
+	    $j('#dropper_red').attr('src', 'resources/images/new/dropper.png');  
+        jQuery("#pen_dropper").val('select');
+      
+        jQuery("#thicknessContainer").hide();
+      }else{
+		    $j('#dropper_red').attr('src', 'resources/images/pencil_4-20110811154100-00023.png');
+        jQuery("#pen_dropper").val('pen');
+        jQuery("#thicknessContainer").show();
+      }
+   
+	  
+      paintAppGlobal.getDrawToolbar().onChangMode(jQuery("#pen_dropper").val());
+      paintAppGlobal.getDrawToolbar().onActionChanged();
+    }),jQuery("#btnSelect").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-cursor"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#btnDrawLine").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-drawline"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#btnDrawRectangle").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-drawsquare"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#btnDrawCircle").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-drawcircle"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#btnDrawImage").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-drawimage"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#btnDrawShape").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-drawshape"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#btnDrawText").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-drawtext"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#btnUpload").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon icon-upload"
+      }
+    }).click(function(){
+      paintAppGlobal.getDrawToolbar().onActionChanged()
+    }),jQuery("#complexDrawToolbar").buttonset(),jQuery("#zoomToolbar").buttonset(),
+   jQuery("#zoom_in").click(function(){
+     e.onZoomIn()
+   }),
+   jQuery("#zoom_out").click(function(){
+     e.onZoomOut()
+   }),
+    jQuery("#rotato-right").click(function(){
+ 
+      e.onRotatoRight();
+      
+    }),jQuery("#rotato-left").click(function(){
+     // alert('sdfsdfs');
+    }),jQuery("#layer-down").click(function(){
+      paintAppGlobal.layerDown();
+    }),jQuery("#layer-up").click(function(){
+      paintAppGlobal.layerUp();
+    }),
+   
+    jQuery("#xcopy").click(function(){
+      
+      e.onDelete();
+  
+       
+    
+    }),
+    
+ 
+    
+    jQuery(document).bind('keyup', 'del', function(){
+      e.onDelete();
+    
+    }),
+    jQuery(document).bind('keypress', 'left', function(){
+      e.onMovingLeft();
+    
+    }),
+    jQuery(document).bind('keyup', 'left', function(){
+    
+    }),
+    jQuery(document).bind('keypress', 'up', function(){
+      e.onMovingUp();
+     
+    }),
+    jQuery(document).bind('keyup', 'up', function(){
+   
+    }),
+    jQuery(document).bind('keypress', 'right', function(){
+      e.onMovingRight();
+    
+    }),
+    jQuery(document).bind('keyup', 'right', function(){
+     // setDone();
+    }),
+    jQuery(document).bind('keypress', 'down', function(){
+      e.onMovingDown();
+     
+    }),
+    jQuery(document).bind('keyup', 'down', function(){
+  
+    }),
+  
+    jQuery("#bucket").click(function(){
+    
+	  $j('#bucket_red').attr('src', 'resources/images/new/bucket.png');
+      if(paintAppGlobal.currentMode === 'bucket'){
+		
+		 
+        paintAppGlobal.processMode('select');
+        paintAppGlobal.getDrawToolbar().onChangMode('select');
+        selectLayer(current_group_layer);
+      }else{
+		
+		 $j('#bucket_red').attr('src', 'resources/images/paint-bucket_red.png');
+        paintAppGlobal.processMode('bucket');
+        paintAppGlobal.getDrawToolbar().onChangMode('bucket');
+        var objects = paintAppGlobal.canvas.getObjects();
+		
+        for(var x in objects){
+          objects[x].selectable = false;
+        }  
+      }
+    }),jQuery("#layer-clock").click(function(){
+      lockGroupLayer();
+    }),jQuery("#lockOption").buttonset(),jQuery("#btnLock").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon-small icon-unlock"
+      }
+    }).click(function(){
+      e.onLock()
+    }),jQuery("#btnLock").change(function(){
+      jQuery("#btnLock").attr("checked")?jQuery("#btnLock").button({
+        icons:{
+          primary:"toolbar-icon-small icon-lock"
+        }
+      }):jQuery("#btnLock").button({
+        icons:{
+          primary:"toolbar-icon-small icon-unlock"
+        }
+      })
+    }),jQuery("#positionOptions").buttonset(),jQuery("#elementPositioDescription").button({
+      disabled:!0,
+      text:!0,
+      icons:{
+        primary:"toolbar-icon-small icon-empty"
+      }
+    }),jQuery("#btnBringToFront").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon-small icon-bringtofront"
+      }
+    }).click(function(){
+      e.onBringToFront()
+    }),jQuery("#btnSendToBack").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon-small icon-sendtoback"
+      }
+    }).click(function(){
+      e.onSendToBack()
+    }),jQuery("#opacitySlider").slider({
+      value:100,
+      slide:function(){
+        e.onOpacityChanged()
+      },
+      stop: function( event, ui ) {
+        //setDone();
+      }
+    }),jQuery("#thicknessSlider").slider({
+      min:1,
+      max:50,
+      value:5,
+      slide:function(){
+        jQuery("#thicknessValueDisplay").html(jQuery("#thicknessSlider").slider("value")),e.onThicknessChanged()
+      }
+    }),jQuery("#thicknessValueDisplay").html(jQuery("#thicknessSlider").slider("value")),
+    
+    jQuery("#primaryColorSelector").spectrum({
+      color: "#ff0000",
+      showButtons: false,
+      showInput: false,
+      showInitial: true,
+      showPalette: true,
+      showSelectionPalette: true,
+      maxPaletteSize: 100,
+      show: function () {
+        
+      },
+      beforeShow: function () {
+      },
+      move: function (color) {
+		//  alert('asda');
+        e.onFillChanged(color.toHexString()); // #ff0000
+      },
+      palette: [
+      ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)", 
+      "rgb(204, 204, 204)", "rgb(217, 217, 217)", "rgb(255, 255, 255)"],
+      ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+      "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+      ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+      "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)",
+      "rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+      "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)",
+      "rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+      "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)",
+      "rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+      "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)",
+     
+      "rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+      "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
+      ]      
+      
+    }),
+    jQuery("#fontSize").change(function(){
+      e.onFontSizeChanged()
+    }),jQuery("#fontStyles").buttonset(),jQuery("#fontStyleBold").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon-small icon-bold"
+      }
+    }).click(function(){
+      e.onBoldCheckChanged()
+    }),jQuery("#fontStyleItalic").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon-small icon-italic"
+      }
+    }).click(function(){
+      e.onItalicCheckChanged()
+    }),jQuery("#fontStyleUnderline").button({
+      text:!1,
+      icons:{
+        primary:"toolbar-icon-small icon-underline"
+      }
+    }).click(function(){
+      e.onUnderlineCheckChanged()
+    }),toolbar.onActionChanged()
+  ,PaintAppToolbar.prototype.listenEvents=function(){
+      //alert('cc');
+    jQuery("#btnZoomIn").click(function(){}),
+    jQuery("#btnZoomOut").click(function(){})
+  },PaintAppToolbar.prototype.getFill=function(){
+    return rgb2hex(jQuery(".sp-preview-inner").css("backgroundColor"))
+  },PaintAppToolbar.prototype.getStroke=function(){
+    return rgb2hex(jQuery(".sp-preview-inner").css("backgroundColor"))
+  },PaintAppToolbar.prototype.getStrokeWidth=function(){
+    return jQuery("#thicknessSlider").slider("value")
+  },PaintAppToolbar.prototype.getOpacity=function(){
+    return jQuery("#opacitySlider").slider("value")
+  },PaintAppToolbar.prototype.getFont=function(){
+    return jQuery("#fontSelector").val()
+  },PaintAppToolbar.prototype.getFontSize=function(){
+    return jQuery("#fontSize").val()
+  },PaintAppToolbar.prototype.getFontBold=function(){
+    return jQuery("#fontStyleBold").prop("checked")
+  },PaintAppToolbar.prototype.getFontItalic=function(){
+    return jQuery("#fontStyleItalic").prop("checked")
+  },PaintAppToolbar.prototype.getFontUnderline=function(){
+    return jQuery("#fontStyleUnderline").prop("checked")
+  },PaintAppToolbar.prototype.onZoomIn=function(){
+  
+    //console.log("Zoom in");
+    var e=paintAppGlobal.getCanvas();
+    if(!e.getActiveObject())
+      return;
+      if(e.getActiveObject().type == "image" && e.getActiveObject().scaleX >= 1)
+          return;
+    e.getActiveObject().scaleToHeight(e.getActiveObject().getHeight()*1.2);
+    e.renderAll();
+  },PaintAppToolbar.prototype.onZoomOut=function(){
+    var e=paintAppGlobal.getCanvas();
+    if(!e.getActiveObject())
+      return;
+    e.getActiveObject().scaleToHeight(e.getActiveObject().getHeight()/1.2);
+    e.renderAll();
+  },PaintAppToolbar.prototype.onRotatoRight=function(){
+      //alert('sdfsdfs');
+    var e=paintAppGlobal.getCanvas();
+   // console.log(e);
+    if(!e.getActiveObject())
+      return;
+    e.getActiveObject().rotate(e.getActiveObject().get('angle') + 5) ;
+    e.renderAll();
+  },PaintAppToolbar.prototype.onRotatoLeft=function(){
+    var e=paintAppGlobal.getCanvas();
+    if(!e.getActiveObject())
+      return;
+    e.getActiveObject().rotate(e.getActiveObject().get('angle') - 5) ;
+    e.renderAll();
+  },PaintAppToolbar.prototype.onMovingLeft=function(){
+    var e=paintAppGlobal.getCanvas();
+    if(!e.getActiveObject() || e.getActiveObject().left < 0)
+      return;
+    e.getActiveObject().set({'left': e.getActiveObject().get('left') - 5}) ;
+    e.renderAll();
+  },PaintAppToolbar.prototype.onMovingRight=function(){
+    var e=paintAppGlobal.getCanvas();
+    if(!e.getActiveObject() || e.getActiveObject().left > e.getWidth())
+      return;
+   e.getActiveObject().set({'left': e.getActiveObject().get('left') + 5}) ;
+    e.renderAll();
+  },PaintAppToolbar.prototype.onMovingUp=function(){
+    var e=paintAppGlobal.getCanvas();
+    if(!e.getActiveObject() || e.getActiveObject().top < 0)
+      return;
+    e.getActiveObject().set({'top': e.getActiveObject().get('top') - 5}) ;
+    e.renderAll();
+  },PaintAppToolbar.prototype.onMovingDown=function(){
+    var e=paintAppGlobal.getCanvas();
+    if(!e.getActiveObject() || e.getActiveObject().top  > e.getHeight())
+      return;
+    e.getActiveObject().set({'top': e.getActiveObject().get('top') + 5}) ;
+    e.renderAll();
+  },PaintAppToolbar.prototype.onDelete=function(){
+  
+    var e=paintAppGlobal.canvas;
+    if(e.getActiveGroup()){
+   
+    }else if(e.getActiveObject()){
+      var n=e.getActiveObject();
+      removePriceObject(n.price);
+      n.lockRotation!=1&&e.remove(n)
+    }
+  },PaintAppToolbar.prototype.onLock=function(){
+    var e=paintAppGlobal.getCanvas(),t=e.getActiveObject();
+    t.lockRotation==1?t.lockRotation=t.lockUniScaling=t.lockMovementX=t.lockMovementY=t.lockScalingX=t.lockScalingY=!1:t.lockRotation=t.lockUniScaling=t.lockMovementX=t.lockMovementY=t.lockScalingX=t.lockScalingY=!0
+  },PaintAppToolbar.prototype.onBringToFront=function(){
+    var e=paintAppGlobal.getCanvas();
+    e.getActiveObject()&&e.bringToFront(e.getActiveObject())
+  },PaintAppToolbar.prototype.onSendToBack=function(){
+    var e=paintAppGlobal.getCanvas();
+    //e.getActiveObject()&&e.sendToBack(e.getActiveObject());e.renderAll();
+    e.sendToBack(e.getActiveObject());
+    e.renderAll();
+  },PaintAppToolbar.prototype.onOpacityChanged=function(){
+  var listGroup = getCurrentList();
+    listGroup[current_group_layer].changeOpacity(this.getOpacity()/100)
+  //this.changeProperty("opacity",this.getOpacity()/100)
+  },PaintAppToolbar.prototype.onThicknessChanged=function(){
+    this.changeProperty("strokeWidth",this.getStrokeWidth())
+  },PaintAppToolbar.prototype.onFillChanged=function(e){
+    this.changeProperty("fill",e)
+  },PaintAppToolbar.prototype.onStrokeChanged=function(e){
+    this.changeProperty("stroke","#"+e)
+  },PaintAppToolbar.prototype.onBoldCheckChanged=function(){
+    this.changeProperty("fontWeight",this.getFontBold()?"bold":"100"); 
+  },PaintAppToolbar.prototype.onItalicCheckChanged=function(){
+    this.changeProperty("fontStyle",this.getFontItalic()?"italic":"normal")
+  },PaintAppToolbar.prototype.onUnderlineCheckChanged=function(){
+    this.changeProperty("textDecoration",this.getFontUnderline()?"underline":"")
+  },PaintAppToolbar.prototype.onFontChanged=function(){
+    var n=paintAppGlobal.canvas.getActiveObject();
+    if(n) n.set("fontFamily",this.getFont());
+    paintAppGlobal.canvas.renderAll();
+  //this.changeProperty("fontFamily",this.getFont())
+  },PaintAppToolbar.prototype.onFontSizeChanged=function(){
+    var e=paintAppGlobal.getCanvas().getActiveObject();
+    e&&(e.setFontsize(this.getFontSize()),paintAppGlobal.canvas.renderAll())
+  },PaintAppToolbar.prototype.changeProperty=function(e,t){
+    var n=paintAppGlobal.canvas.getActiveObject(),r=this.getMode();
+    if(r==="pen")paintAppGlobal.canvas.freeDrawingColor=this.getFill(),paintAppGlobal.canvas.freeDrawingLineWidth=this.getStrokeWidth();
+    else if(n)return n.set(e,t),paintAppGlobal.canvas.renderAll(),!0;
+    return!1
+  },PaintAppToolbar.prototype.getMode=function(){
+    return jQuery("#pen_dropper").val()
+  },PaintAppToolbar.prototype.hideAllSecondaryToolbars=function(){
+  
+    },PaintAppToolbar.prototype.setSelectedObject=function(e){
+      if(!e)return;
+      var t=jQuery("input[name='drawAction']:checked").val();
+      this.hideAllSecondaryToolbars(),jQuery("#commonToolbars").show(),this.inAddMode=!0,jQuery("#opacitySlider").slider({
+        value:e.get("opacity")*100
+      });
+      var n=e.get("strokeWidth");
+      n&&(jQuery("#thicknessSlider").slider({
+        value:n
+      }),jQuery("#thicknessValueDisplay").html(jQuery("#thicknessSlider").slider("value")));
+      var n=e.get("stroke");
+      n&&(jQuery(".sp-preview-inner").css("backgroundColor",n));
+      var n=e.get("fill");
+      n&&(jQuery(".sp-preview-inner").css("backgroundColor",n)),e.lockRotation==1?jQuery("#btnLock").prop("checked",!0).change():jQuery("#btnLock").prop("checked",!1).change();
+      var r=e.type;
+   
+    },PaintAppToolbar.prototype.onActionChanged=function(){    
+      var e=jQuery("#pen_dropper").val(); 
+      if(e==="pen"){
+       
+        paintAppGlobal.canvas.freeDrawingColor=this.getFill();
+       
+        paintAppGlobal.canvas.freeDrawingLineWidth = this.getStrokeWidth();
+      }
+      paintAppGlobal.processMode(e);
+      
+    },PaintAppToolbar.prototype.onChangMode=function(mode){    
+      jQuery("#dropper").removeClass('select-non-pen');
+      jQuery("#bucket").removeClass('select-bucket');
+      
+      if(mode === 'pen'){
+        jQuery("#dropper").addClass('select-non-pen');
+        paintAppGlobal.canvas.freeDrawingCursor = 'url(resources/images/dropper.cur) 10 20,auto';
+  
+      }else if(mode === 'bucket'){
+        jQuery("#bucket").addClass('select-bucket');
+        paintAppGlobal.canvas.hoverCursor = 'url(resources/images/bucket.cur) 20 20,auto';
+        paintAppGlobal.canvas.defaultCursor = 'url(resources/images/bucket.cur) 20 20,auto';
+      }else{
+        paintAppGlobal.canvas.hoverCursor = 'move';
+        paintAppGlobal.canvas.defaultCursor = 'default';
+      }
+    }
+   
+    }
+     ///////////////////////////////////////////////////////////data
+              var arr = [
+              ['resources/images/product/thumb_mens_plus_crew1200.png','resources/images/product/thumb_mens_plus_crew_back1200.png' ,  '$12.00','S-M-L-XL','1','16'],
+             // [ 'resources/images/product/thumb_mens_plus_crew1200.png' , 'back.jpg', '$15.00','1'],
+            //  ['thumb_mens_plus_crew1200.png','thumb_mens_plus_crew_back1200.png' ,  '$12.00','1'],
+             // [ 'f (1).png' , 'f (2).png', '$15.00','1']
+              
+          ];
+		  var list_size = 'S-M-L-XL';
+          ////////////////////////////////////////////////////////////////////
+  var back_img = arr[0][1];
+  var front_img = arr[0][0];
+  var alldata = [];
+  var alldata1 = [];
+  /*
+  alldata1.push('file_2013-09-24T14-25-01@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-02@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-03@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-04@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-05@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-06@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-07@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-08@objects@objects@objects@objects@42');
+		alldata1.push('file_2013-09-24T14-25-09@objects@objects@objects@objects@42');
+		alldata1.push('sdfsdf'); */
+		
+  var count1 = 0;
+    var enableLayers_1 = [{'id': 0, 'name': 'Layer 1'}]; var enableLayers_2 = [{'id': 0, 'name': 'Layer 1'}];
+	var listArt = [];
+  ///////////////////////////////////////////////
+  
+          
+            j = function (id) {
+                  return document.getElementById(id);
+              },
+              failCB = function (msg) {
+                  return function () {
+                      alert('[FAIL] ' + msg);
+                  }
+              },
+              file = {
+                  writer: { available: false },
+                  reader: { available: false }
+              },
+              dbEntries = [];
+			    dbEntries1 = [];
+				
+			   var first = 0;
+			  var  first1 = 0;
+			//   var  first2 = 1;
+			   var save = 1;
+			    var save1 = 1;
+				 var save2 = 1;
+  				var cnt = 0;
+				var load_count = 1;
+				var load_count1 = 0;
+					var load_count2 = 0;
+					
+					//  var allproduct = '<div size="S-M-L-XL" id="list-products"><div id="list_image"><div style="width:75px;height:70px;"  index="0"  class="frontside pslider select_product tooltip_item"><img size="S-M-L-XL" onLoad="loadproduct();" onClick="loadproduct();" style="width:71px;height:66px;"  src="resources/images/product/thumb_mens_plus_crew1200.png"></div><div style="display: none;" class="tooltip_description"><div id="price_value" class="tooltip_price">$12.00</div></div></div><div class="clear-both"></div></div>';
+					//////////////////////
+					
+					////////////////////////
+					
+			var page = 1;
+			//var page1 = 1;
+			var scanArtval = 0;
+			var dataRespond = '';
+			var dataAjax = [];
+			var dataDesign = [];
+ 			var listBackground = [];
+			var listVector = [];
+			var listArtCnt = 0;
+			var designNodecnt = 0;
+			var refreshNodeProd = 0;
+		/*	
+			var listVector = [];
+			listVector.push('1');
+			listVector.push('2');
+			listVector.push('3');
+			listVector.push('4');
+			listVector.push('5');
+			listVector.push('6');
+			listVector.push('7');
+			listVector.push('8');
+			listVector.push('9');
+			listVector.push('10');
+			listVector.push('11');
+				listBackground.push('1');
+			listBackground.push('2');
+			listBackground.push('3');
+			listBackground.push('4');
+			listBackground.push('5');
+			listBackground.push('6');
+			listBackground.push('7');
+			listBackground.push('8');
+			listBackground.push('9');
+			listBackground.push('10');
+			listBackground.push('11');
+			*/
+			var filepath = '';
+      document.addEventListener('deviceready', function () {
+		 
+             var fail1 = failCB('requestFileSystem');
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail1);
+		
+     }, false); 
+  ////////////////////////////////////////////////////////
+          
+   
+     function gotFS(fs) {
+              var fail1 = failCB('getFile');
+			
+                                fs.root.getDirectory("BeeADesigner", {create: true, exclusive: false}, gotEntry, fail1);
+								fs.root.getFile("BeeADesigner/dataProd.txt", {create: true, exclusive: false}, gotDataProd, fail1);
+								fs.root.getDirectory("BeeADesigner/ProductDesign", {create: true, exclusive: false}, gotEntry, fail1);
+								  fs.root.getDirectory("BeeADesigner/Gallery", {create: true, exclusive: false}, scanArt, fail1);
+								  
+								
+							
+								
+                                fs.root.getFile("BeeADesigner/datajson.txt" , {create: true, exclusive: false},gotContentFileEntry, fail1);
+								
+								// setTimeout( function(){checkConnection();} ,5000);
+							
+          }
+		  
+		//  var datadesign = [];
+		   var datadesign1 = [];
+		  var dbEntriesDesign = [];
+		  
+		  function gotEntry(fileEntry) {
+             // file.entry = fileEntry;
+          }
+		  
+		     function gotDataProd(fileEntry) {
+			
+              var fail1 = failCB('createWriter');
+		
+              file.entry = fileEntry;
+ 
+           fileEntry.createWriter(gotFileWriter, fail1);
+		
+             readText1();
+			
+			 
+			
+          }
+		  
+		  
+		   function readText1() {
+			
+              if (file.entry) {
+				
+                  file.entry.file(function (dbFile) {
+                      var reader = new FileReader();
+                      reader.onloadend = function (evt) {
+						//  alert(evt.target.result);
+						 //dbEntriesDesign.push(evt.target.result);
+                      //  alert(evt.target.result);
+					  if(evt.target.result == '')
+					  {
+   							datadesign1 = 'none';
+							//alert(datadesign1.length)
+					  }
+					  else
+					  {
+						  dbEntriesDesign.push(evt.target.result);
+						  datadesign1 = evt.target.result.split("$\n");
+					  }
+					  
+					 // alert(datadesign1);
+							if(datadesign1.length > 1)
+							{
+						
+						 var sPath = file.entry.fullPath.split('BeeADesigner');
+						 	var tmpArrProd;
+								for(var i = 0; i < datadesign1.length; i++)
+							{
+								tmpArrProd = datadesign1[i].split('@');
+								//alert(sPath[0] + 'BeeADesigner/ProductDesign/' + tmpArrProd[2]);
+								//alert(sPath[0] + 'BeeADesigner/ProductDesign/' + tmpArrProd[3]);
+								arr[i] = [];
+								arr[i][0] = sPath[0] + 'BeeADesigner/ProductDesign/' + tmpArrProd[2];
+								arr[i][1] = sPath[0] + 'BeeADesigner/ProductDesign/' + tmpArrProd[3];
+								arr[i][2] = '$12.00';
+								arr[i][3] = tmpArrProd[4];
+								arr[i][4] = tmpArrProd[1];
+								arr[i][5] = tmpArrProd[0];
+							//	sPath = tmpArrProd[];
+							}
+					
+							}
+						
+							//alert(sPath);
+							// var sPath = file.entry.fullPath.replace("datajson.txt","");
+							// sPath = sPath + 'ProductDesign/';
+						
+				//	dbEntriesDesign.push()
+                      }
+                      reader.readAsText(dbFile);
+                  }, failCB("FileReader"));
+              }
+   
+              return false;
+          }
+		  
+	   function gotContentFileEntry(fileEntry) {
+			
+        
+              file.entry = fileEntry;
+ 
+             readText2();
+			
+			 
+			
+          }
+          function gotFileEntry(fileEntry) {
+			
+              var fail1 = failCB('createWriter');
+		
+              file.entry = fileEntry;
+ 
+             fileEntry.createWriter(gotFileWriter, fail1);
+		
+             readText();
+			
+			 
+			
+          }
+		     function gotFileWriter(fileWriter) {
+              file.writer.available = true;
+              file.writer.object = fileWriter;
+			
+          }
+		   function readText() {
+			
+              if (file.entry) {
+				
+                  file.entry.file(function (dbFile) {
+                      var reader = new FileReader();
+                      reader.onloadend = function (evt) {
+						 alldata = evt.target.result;
+                        
+   							alldata1 =     evt.target.result.split("$");
+					saveText();
+                      }
+                      reader.readAsText(dbFile);
+                  }, failCB("FileReader"));
+              }
+   
+              return false;
+          }
+		  
+		   function readText2() {
+			
+              if (file.entry) {
+				
+                  file.entry.file(function (dbFile) {
+                      var reader = new FileReader();
+                      reader.onloadend = function (evt) {
+						 alldata = evt.target.result;
+                        
+   							alldata1 =     evt.target.result.split("$");
+					
+                      }
+                      reader.readAsText(dbFile);
+                  }, failCB("FileReader"));
+              }
+   
+              return false;
+          }
+		  
+		  
+		  
+		   function scanGallery()
+		   {
+			  // alert('scan gallery');
+			  // if(dataAjax == 'none')
+			 //  {
+			     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+   fileSystem.root.getDirectory("BeeADesigner/Gallery", {
+           create: true
+       }, function(directory) {
+		   
+		 
+		   // alert('cccc');
+		filepath = directory.fullPath;
+        var directoryReader = directory.createReader();
+        directoryReader.readEntries(function(entries) {
+            if(dataAjax != 'none')
+			  { 
+			   var i;
+			//var tmpG = [];
+			var t = '';
+			//alert(entries.length + 'entries.length');
+            for (i=0; i<entries.length; i++) {
+				
+            t = entries[i].name.split('.');
+			  dataAjax.push(t[0]);
+			//alert(t[0]);
+            }
+			dataAjax = JSON.stringify(dataAjax);
+		}
+		//}
+		if(datadesign1 == 'none')
+		{
+			dataDesign = 'none';
+		}
+		else
+		{
+			
+		for(var j = 0; j < datadesign1.length; j++)
+		{
+			
+			var dataarr = datadesign1[j].split('@');
+		//	alert(dataarr[0]);
+				dataDesign.push(dataarr[0]);
+			
+		}
+		
+			dataDesign = JSON.stringify(dataDesign);
+		}
+	//	alert(dataAjax + 'dataAjax');
+		//alert(dataAjax.length + 'dataAjax.length');
+		//alert(dataDesign[0]);
+		//alert(dataDesign[1]);
+		//alert(dataDesign[2]);
+		//alert(JSON.stringify(dataAjax));
+		
+		//alert(JSON.stringify(dataDesign));
+		//alert(dataDesign.length + 'dataDesign.length');
+				//alert(dataDesign[0]);
+		//console.log(dataAjax);
+		//console.log(dataDesign);
+			 $mtkb.ajax({
+			url: 'http://www.peopleschoiceapparel.com/design/index/checkUpdate',
+		
+           dataType: 'json',
+            type: 'post',
+			
+			
+           data:jQuery.param({
+                dataProdDesign: dataDesign,
+                dataGalerry: dataAjax,
+               
+            }),
+			
+		
+            success: function(data) {
+			
+                if (data.status == 'SUCCESS') {
+					 jQuery('#modalPopLite-mask1').css('display','none');
+					//alert('SUCCESS');
+			
+				if(data.fileArr.length == 0 && data.prodArr.length == 0)
+				{
+				alert('You have no any update to download!!!');
+				}
+				else if(data.fileArr.length != 0 && data.prodArr.length != 0)
+				{
+					alert('You have ' +data.fileArr.length + ' Gallery file and ' + data.prodArr.length + ' product design to download!!!');
+					
+					 var fName = '';
+								 var extens = '';
+								
+					for( var i = 0; i < data.fileArr.length; i++)
+								{		
+							
+										extens = data.fileArr[i].split('.');
+											fName = data.idArr[i] + '_' + data.typeArr[i] + '.' + extens[extens.length - 1];
+									
+									if(data.typeArr[i] == 'background')
+									{
+				downloadArt(fName,data.fileArr[i],"BeeADesigner/Gallery/image.jpg");
+									}
+									else if(data.typeArr[i] == 'vector')
+									{
+				downloadArt(fName,"http://www.peopleschoiceapparel.com/media/igallery" + data.fileArr[i],"BeeADesigner/Gallery/image.jpg");
+									}
+								}
+								
+								
+								
+								for( var i = 0; i < data.prodArr.length; i++)
+								{	
+								dbEntriesDesign.push(data.prodArr[i] + '$');
+								
+								var splittmp = data.prodArr[i].split('@');
+								
+									downloadArt(splittmp[2],"http://www.peopleschoiceapparel.com/media/productdesign/" + splittmp[2],"BeeADesigner/ProductDesign/image.jpg");
+									
+									
+									downloadArt(splittmp[3],"http://www.peopleschoiceapparel.com/media/productdesign/" + splittmp[3],"BeeADesigner/ProductDesign/image.jpg");
+								}
+								
+								 window.requestFileSystem(
+                     LocalFileSystem.PERSISTENT, 0, 
+                     function onFileSystemSuccess(fileSystem2) {
+                     fileSystem2.root.getFile("BeeADesigner/dataProd.txt", {create: true, exclusive: false},gotDataProd,fail);
+                     }, 
+                     fail);
+								
+							//	designNodecnt = 0;
+								saveText1();
+									
+								 window.requestFileSystem(
+                     LocalFileSystem.PERSISTENT, 0, 
+                     function onFileSystemSuccess(fileSystem2) {
+                     fileSystem2.root.getFile("BeeADesigner/dataProd.txt", {create: true, exclusive: false},gotDataProd,fail);
+                     }, 
+                     fail);
+								designNodecnt = 0;
+								
+								
+				}
+			
+			
+			
+			////////////////////////////////////
+				
+								else if(data.fileArr.length == 0 && data.prodArr.length != 0)
+								{
+									
+									alert('You have ' + data.prodArr.length + ' product design to download!!!');
+								
+									for( var i = 0; i < data.prodArr.length; i++)
+								{	
+								dbEntriesDesign.push(data.prodArr[i] + '$');
+								
+								var splittmp = data.prodArr[i].split('@');
+								
+									downloadArt(splittmp[2],"http://www.peopleschoiceapparel.com/media/productdesign/" + splittmp[2],"BeeADesigner/ProductDesign/image.jpg");
+									
+									
+									downloadArt(splittmp[3],"http://www.peopleschoiceapparel.com/media/productdesign/" + splittmp[3],"BeeADesigner/ProductDesign/image.jpg");
+								}
+								
+								 window.requestFileSystem(
+                     LocalFileSystem.PERSISTENT, 0, 
+                     function onFileSystemSuccess(fileSystem2) {
+                     fileSystem2.root.getFile("BeeADesigner/dataProd.txt", {create: true, exclusive: false},gotDataProd,fail);
+                     }, 
+                     fail);
+								
+								saveText1();
+									
+								 window.requestFileSystem(
+                     LocalFileSystem.PERSISTENT, 0, 
+                     function onFileSystemSuccess(fileSystem2) {
+                     fileSystem2.root.getFile("BeeADesigner/dataProd.txt", {create: true, exclusive: false},gotDataProd,fail);
+                     }, 
+                     fail);
+								designNodecnt = 0;
+								
+								
+								}
+								else if(data.fileArr.length != 0 && data.prodArr.length == 0)
+								{
+									alert('You have ' +data.fileArr.length + ' Gallery file to download!!!');
+					
+					 var fName = '';
+								 var extens = '';
+								
+					for( var i = 0; i < data.fileArr.length; i++)
+								{		
+							
+										extens = data.fileArr[i].split('.');
+											fName = data.idArr[i] + '_' + data.typeArr[i] + '.' + extens[extens.length - 1];
+									
+									if(data.typeArr[i] == 'background')
+									{
+				downloadArt(fName,data.fileArr[i],"BeeADesigner/Gallery/image.jpg");
+									}
+									else if(data.typeArr[i] == 'vector')
+									{
+				downloadArt(fName,"http://www.peopleschoiceapparel.com/media/igallery" + data.fileArr[i],"BeeADesigner/Gallery/image.jpg");
+									}
+								}
+								}
+								
+								
+					/////////////////////////////////////////////////////////////////////////////////
+								
+								
+				setList();
+				scanArtval = 1;
+				
+				listArtCnt = 0;
+                } else {
+					
+                    jQuery('#modalPopLite-mask1').css('display','none');
+                    jQuery.msgBox({
+                        title: "Error",
+                        content: data.message,
+                        type: "error"
+                    });
+                }
+            },
+            complete: function() {
+					 jQuery('#modalPopLite-mask1').css('display','none');
+			
+                $mtkb('#div_loader').hide();
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+				 jQuery('#modalPopLite-mask1').css('display','none');
+				//alert('error');
+              
+                jQuery.msgBox({
+                    title: "Error",
+                    content: "Request error, please try again!",
+                    type: "error"
+                });
+              
+            }
+        });
+		
+        }, function (error) {
+            alert(error.code);
+        });
+
+       } );
+}, function(error) {
+   alert("can't even get the file system: " + error.code);
+});
+
+  // window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem1) {
+ //  fileSystem1.root.getFile("BeeADesigner/dataProd.txt", {create: true, exclusive: false}, gotDataProd,  function(error) {
+  // alert("can't even get the file system: " + error.code);
+//});
+  // });
+		   }
+		   
+		   /////////////////////////////
+		   
+		    
+		   /////////////////////////////
+		     function scanArt(fileEntry){
+				// fileEntry.remove();
+				// alert('begin scanArt');
+	  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+   fileSystem.root.getDirectory("BeeADesigner/Gallery", {
+           create: true
+       }, function(directory) {
+		filepath = directory.fullPath;
+        var directoryReader = directory.createReader();
+        directoryReader.readEntries(function(entries) {
+            var i;
+            for (i=0; i<entries.length; i++) {
+		
+				listArt.push(entries[i].name);
+				
+            }
+			writeArt();
+			// directory.remove();
+        }, function (error) {
+            alert(error.code);
+        });
+
+       } );
+}, function(error) {
+   alert("can't even get the file system: " + error.code);
+});
+//alert(listArt.length);
+	
+  }
+  function writeArt(){
+	 
+	    if(listArt.length == 0)
+	  {
+		
+	//alert(listArt.length);
+		 setTimeout( function()
+	   {
+		  Ext.Msg.show({
+         title: '<div style="text-align:center;width:100%;"><b >Update</b></div>',
+         message: '<b style="color:#C0C0C0;font-size:13px;font: bold;"> You have no Art on your Gallery, please connect to nerwork to download Art! </b>',
+		// prompt : true,     
+		 	width:500,
+			height:150,
+			multiline: true,
+		//	maxwidth:900,
+         //list: list,
+       //  record: record,
+         buttons: Ext.MessageBox.YESNO,
+		// animEl: 'elId',
+       //  promptConfig: false,
+         fn: function (btn) {
+             if (btn === 'yes') {
+				// alert('download art');
+				 checkConnection();
+				 
+                                                       }
+                                                       else {
+                                                           ;
+                                                       }
+        }
+		
+    }); 
+	   },1500);
+	 
+	
+	  }
+	  else
+	  {
+		  checkConnection();
+	  }
+	  
+  }
+	 
+		
+   function checkConnection() {
+        var networkState = navigator.network.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.NONE]     = 'No network connection';
+if(states[networkState] != 'No network connection')
+{
+       // alert('Connection type: ' + states[networkState]);
+	   setTimeout( function()
+	   {
+			Ext.Msg.show({
+         title: 'Update',
+         message: '<b style="color:#C0C0C0">You have connected to ' + states[networkState]  + ', do you want to check and download update for app? </b>',
+	//  message: 'dasdadada',
+		// prompt : true,     
+		 	width: 600,
+			height:150,
+			multiline: true,
+        
+         buttons: Ext.MessageBox.YESNO,
+		
+         fn: function (btn) {
+             if (btn === 'yes') {
+				   	
+						jQuery('#name_bar').css('display','block');
+				   
+														   var fail1 = failCB('requestFileSystem');
+														   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, updateApp, fail1);
+														  
+                                                       }
+                                                       else {
+                                                           ;
+                                                       }
+        }
+    }); },2000)
+}
+    }
+	function downloadArt(sName,sfilename,spathdir)
+	{
+		
+		var dataRespTmp = dataRespond;
+		var strdownload = ''
+		//alert(dataRespTmp);
+		window.requestFileSystem(
+                     LocalFileSystem.PERSISTENT, 0, 
+                     function onFileSystemSuccess(fileSystem) {
+                     fileSystem.root.getFile(
+                                  spathdir, {create: true, exclusive: false}, 
+                                 function gotFileEntry(fileEntry){
+                                 var sPath = fileEntry.fullPath.replace("image.jpg","");
+								// alert(sPath + 'asd');
+                                 var fileTransfer = new FileTransfer();
+								 strdownload = sfilename.split('/');
+								// alert(strdownload[3]);
+								fileTransfer.onprogress = function(progressEvent) {
+		if (progressEvent.lengthComputable) {
+			var perc = Math.floor((progressEvent.loaded / progressEvent.total) * 50);
+			document.getElementById('download-name').innerHTML  =  strdownload[strdownload.length - 1];
+			document.getElementById('download-info').innerHTML = perc + "% loaded...";
+		} else {
+			if(document.getElementById('download-info').innerHTML == "") {
+				document.getElementById('download-info').innerHTML = "Loading";
+			} else {
+				document.getElementById('download-info').innerHTML += ".";
+			}
+		}
+	};
+	
+                                 fileEntry.remove();
+						
+                                 fileTransfer.download(
+                                       
+										 sfilename,
+                                           sPath + sName,
+                                           function() {
+										
+                                           },
+                                           function(error) {
+                                           console.log("download error source " + error.source);
+                                           console.log("download error target " + error.target);
+                                           console.log("upload error code: " + error.code);
+                                           }
+                                           );
+									
+                                 }, 
+                                 fail);
+                     }, 
+                     fail);
+	}
+	
+	/////////////////////////////
+	function scanList(){
+		listArt = [];
+		  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+   fileSystem.root.getDirectory("BeeADesigner/Gallery", {
+           create: true
+       }, function(directory) {
+		filepath = directory.fullPath;
+        var directoryReader = directory.createReader();
+        directoryReader.readEntries(function(entries) {
+            var i;
+            for (i=0; i<entries.length; i++) {
+			//	alert('scanArt');
+             //  alert(entries[i].name);
+				listArt.push(entries[i].name);
+				//alert(listArt.length);
+            }
+			//writeArt();
+			// directory.remove();
+        }, function (error) {
+            alert(error.code);
+        });
+
+       } );
+}, function(error) {
+   alert("can't even get the file system: " + error.code);
+});
+	}
+	
+	/////////////////
+	function setList(){
+		listArt = [];
+		  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+   fileSystem.root.getDirectory("BeeADesigner/Gallery", {
+           create: true
+       }, function(directory) {
+		filepath = directory.fullPath;
+        var directoryReader = directory.createReader();
+        directoryReader.readEntries(function(entries) {
+            var i;
+            for (i=0; i<entries.length; i++) {
+		
+				listArt.push(entries[i].name);
+				
+            }
+			
+        }, function (error) {
+            alert(error.code);
+        });
+
+       } );
+}, function(error) {
+   alert("can't even get the file system: " + error.code);
+});
+		listBackground = [];
+		listVector = [];
+					var tmpart = '';
+			var listArtTmp = '';
+			for(var i = 0; i < listArt.length;i++)
+			{
+				//var tmpart = '';
+				tmpart = listArt[i].split('_');
+				listArtTmp =  tmpart[1].split('.');
+				if(listArtTmp[0] == "background")
+				{
+					listBackground.push(listArt[i]);
+				}
+			}
+			//var listArtTmp = '';
+			for(var i = 0; i < listArt.length;i++)
+			{
+				
+				tmpart = listArt[i].split('_');
+				listArtTmp =  tmpart[1].split('.');
+				if(listArtTmp[0] == "vector")
+				{
+					listVector.push(listArt[i]);
+				}
+			}
+		
+	}
+	////////////////////
+	
+	 function saveText1(e) {
+		
+           //  dbEntriesDesign.push(jsfront  + '@');
+          
+			  //  dbEntries.push(priceTmp[0] + '$');
+    
+              if (file.writer.available) {
+			
+                  file.writer.available = false;
+                  file.writer.object.onwriteend = function (evt) {
+                      file.writer.available = true;
+                      file.writer.object.seek(0);
+                  }
+                  file.writer.object.write(dbEntriesDesign.join("\n"));
+				 
+              }
+	
+	
+              return false;
+          }
+		  
+	function updateApp(fs)
+	{
+		
+		//alert(listArt.length);
+	//	scanList();
+		//alert(listArt.length + 'listArt.length updateApp');
+		 jQuery('#modalPopLite-mask1').css('display','block');
+		// alert(listArt.length);
+		//alert('updateApp ajax');
+		
+		if(listArt.length == 0)
+		{
+			dataAjax = 'none';
+			scanGallery();
+		}
+		else
+		{
+			scanGallery();
+		}
+		
+		
+	
+	}
+  
+ 
+   function fail(evt) {
+        alert(evt.target.error.code);
+    }
+	
+	
+	
+	
+	
+	
+          function saveText(e) {
+			  //alert('start saveText');
+              var jsfront = json_front,
+                  jsback = json_back,
+                  fail;
+   
+    if(layer == 2){
+         json_back = JSON.stringify(paintAppGlobal.canvas);
+		 img_code_back = paintAppGlobal.canvas.toDataURL('png');
+		 enableLayers_2 = [];
+		  $j( ".layer-item" ).each(function( index ) {
+      enableLayers_2.push({'id': $j(this).attr('id').replace('layer-', ''), 'name': $j(this).children('a').html()});
+    });
+
+      }else{
+         json_front = JSON.stringify(paintAppGlobal.canvas);
+		 img_code_front = paintAppGlobal.canvas.toDataURL('png');
+		 	 enableLayers_1 = [];
+		  $j( ".layer-item" ).each(function( index ) {
+      enableLayers_1.push({'id': $j(this).attr('id').replace('layer-', ''), 'name': $j(this).children('a').html()});
+    });
+
+      }
+	
+		//alert('get data done')
+	
+	   var jsfront = json_front,
+                  jsback = json_back,
+                  fail;
+				 
+			if(count1 == 0)
+			{
+			dbEntries.push(alldata);
+			count1 = 1;
+			}
+			// alert(alldata);
+			if(filename == '')
+			{
+				var now = new Date();
+			var str_time =  now.format("isoDateTime").split(':').join("-");
+			 dbEntries.push(str_time+"@");
+			}
+			else
+			{
+				dbEntries.push(filename+"@");
+			}
+             dbEntries.push(jsfront  + '@');
+             dbEntries.push(jsback + '@');
+			  dbEntries.push(img_code_front + '@');
+			   dbEntries.push(img_code_back + '@');
+			   
+			    dbEntries.push(JSON.stringify(enableLayers_1) + '@');
+			   dbEntries.push(JSON.stringify(enableLayers_2) + '@');
+			   var priceTmp = $mtkb('#input_price').val().split('.');
+			    dbEntries.push(priceTmp[0] + '$');
+        //  alert('data');
+	//	alert('push data done')
+              if (file.writer.available) {
+			//	  alert('write');
+                  file.writer.available = false;
+                  file.writer.object.onwriteend = function (evt) {
+                      file.writer.available = true;
+                      file.writer.object.seek(0);
+                  }
+                  file.writer.object.write(dbEntries.join("\n"));
+				 
+              }
+			//  alert('write data done')
+   //////////////////////////////////
+		 readText2();
+		 	 //alert('read');
+			save = 1;
+				
+		
+              return false;
+          }
+		  
+		  
+   
+         
+		 
+		 function setActive(id)
+		 {
+			     if (  jQuery('#' + id).hasClass('size-item-selected')) {
+                                       jQuery('#' + id).removeClass('size-item-selected');
+                                       jQuery('#' + id).next().attr('class', '');
+									//alert('sada');
+                                } else {
+                                       jQuery('#' + id).next().attr('name', 'size[' + jQuery('#' + id).attr('size') + ']');
+                                       jQuery('#' + id).addClass('size-item-selected');
+                                      jQuery('#' + id).next().attr('class', 'validate-digits validate-number required-entry validate-greater-than-zero');
+                                }
+		 }
+		  function setActive1(id)
+		 {
+			     if (  jQuery('#' + id).hasClass('size-item-selected1')) {
+                                       jQuery('#' + id).removeClass('size-item-selected1');
+                                       jQuery('#' + id).next().attr('class', '');
+									//alert('sada');
+                                } else {
+                                       jQuery('#' + id).next().attr('name', 'size[' + jQuery('#' + id).attr('size') + ']');
+                                       jQuery('#' + id).addClass('size-item-selected1');
+                                      jQuery('#' + id).next().attr('class', 'validate-digits validate-number required-entry validate-greater-than-zero');
+                                }
+		 }
+		 
+		 
+   function save_json(){
+	
+	     $j('.size-item').click(function() {
+			  if(first1 == 0)
+			 {
+			
+                               
+                                if ($j(this).hasClass('size-item-selected')) {
+                                    $j(this).removeClass('size-item-selected');
+                                    $j(this).next().attr('class', '');
+									//alert('sada');
+                                } else {
+                                    $j(this).next().attr('name', 'size[' + $j(this).attr('size') + ']');
+                                    $j(this).addClass('size-item-selected');
+                                    $j(this).next().attr('class', 'validate-digits validate-number required-entry validate-greater-than-zero');
+                                }
+                           
+								first1 = 1;  
+			 }
+			 
+                              });
+	  $j('#checkout_btn').click(function() {
+		
+		  if(first1 == 0)
+			 {
+				  window.location.href = 'http://www.peopleschoiceapparel.com/customer/account/loginPostApp/';
+				
+				first1 = 1;
+			 }
+            });
+			
+    };
+  ///////////////////////////////////////////////////////
+        function loadproduct(){
+            
+      
+    $j('.select_product').click(function(){
+   
+      var product_id = $j(this).attr('index'); 
+        list_size = $j(this).attr('size'); 
+      var  back_img1 = arr[product_id][1];
+   var front_img1 = arr[product_id][0];
+     back_img = back_img1;
+      front_img = front_img1;
+ //  load_canvas();
+ paintAppGlobal.canvas._objects = [];
+paintAppGlobal.canvas.renderAll();
+      setOverlayImageFront(front_img1);
+	//  loadcanvas();
+	
+     
+    
+     
+    });
+		}
+    function loadelement(){
+               $j('#layer-trash').click(function(){
+      listGroup = getCurrentList();
+      $j('#layer-add').show();
+      var cLayer = listGroup[current_group_layer];
+      cLayer.remove(getCurrentList());
+      cLayer.enable = false;
+      $j('#layer-' + current_group_layer).parent().remove();
+	 
+      if(countLengthGroup(getCurrentList()) == 1){
+        $j('#layer-trash').hide();
+      }
+      selectLayer(searchIndexLayer_2(getCurrentList()));
+    });
+      $j('#layer-add').click(function(){
+		  // console.log(listGroup2);
+		   
+      $j('#layer-trash').show();
+      addLayer(searchIndexLayer(getCurrentList()), getCurrentList());
+	 // console.log(countLengthGroup(getCurrentList()));
+      if(countLengthGroup(getCurrentList()) == 3){
+        $j('#layer-add').hide();
+		
+      }
+    });
+    
+   
+  
+   
+    
+    $j('#img-done-front').click(function(){
+//console.log(json_back);
+      if(layer == 1)
+        return;
+    
+      enableLayers_2 = [];
+      $j( ".layer-item" ).each(function( index ) {
+        enableLayers_2.push({'id': $j(this).attr('id').replace('layer-', ''), 'name': $j(this).children('a').html()});
+      });
+      $j('#block-layer').html('');
+      for(var i = 0; i< enableLayers_1.length; i++){
+        $j('#block-layer').append('<div class="layer-block-item">  <div ondblclick="changeLayerName(this);" onclick="selectLayer(' + enableLayers_1[i].id + ');" id="layer-' + enableLayers_1[i].id + '" class="even layer-item layer_left"><a href="javascript:void(0);">' + enableLayers_1[i].name + '</a></div><div class="layer_eye"><a class="eye eye-on" href="javascript:void(0);"><img style="width:33px; height:22px;" src="resources/images/edit_black.png" onclick="changeNameLayer(this, '+ enableLayers_1[i].id +');"></a></div>   <div class="layer_eye"><a href="javascript:void(0);" class="eye eye-on"><img onclick="changeVisible(this, ' + enableLayers_1[i].id + ');" src="resources/images/eye-on.png" height="" /></a></div>      <div style="clear: both;"></div>  </div>');
+      
+      }
+      
+      if(enableLayers_1.length == 1){
+        $j('#layer-trash').hide();
+        $j('#layer-add').show();
+      }else if(enableLayers_1.length == 3){
+        $j('#layer-trash').show();
+        $j('#layer-add').hide();
+      }else{
+        $j('#layer-add').show();
+        $j('#layer-trash').show();
+      }
+      //////////
+      json_back = JSON.stringify(paintAppGlobal.canvas);
+    
+    img_code_back = paintAppGlobal.canvas.toDataURL('png'); 
+	  paintAppGlobal.canvas.backgroundImage = '';
+   paintAppGlobal.canvas.overlayImage = null;
+    paintAppGlobal.canvas.renderAll();
+	
+      paintAppGlobal.canvas.loadFromJSON(json_front.replace(/\n/g,"\\n"), function(){
+        paintAppGlobal.canvas.renderAll();
+        
+        setOverlayImageFront(front_img);
+        layer = 1;
+       selectLayer(enableLayers_1[0].id);
+      });    
+	
+    });
+    
+    $j('#img-done-back').click(function(){
+		
+		
+      if(layer == 2)
+        return;
+     
+      enableLayers_1 = [];
+      $j( ".layer-item" ).each(function( index ) {
+        enableLayers_1.push({'id': $j(this).attr('id').replace('layer-', ''), 'name': $j(this).children('a').html()});
+      });
+      
+       $j('#block-layer').html('');
+      for(var i = 0; i< enableLayers_2.length; i++){
+         $j('#block-layer').append('<div class="layer-block-item">  <div ondblclick="changeLayerName(this);" onclick="selectLayer(' + enableLayers_2[i].id + ');" id="layer-' + enableLayers_2[i].id + '" class="even layer-item layer_left"><a href="javascript:void(0);">' + enableLayers_2[i].name + '</a></div>  <div class="layer_eye"><a class="eye eye-on" href="javascript:void(0);"><img style="width:33px; height:22px" src="resources/images/edit_black.png" onclick="changeNameLayer(this, '+ enableLayers_2[i].id +');"></a></div>  <div class="layer_eye"><a href="javascript:void(0);" class="eye eye-on"><img onclick="changeVisible(this, ' + enableLayers_2[i].id + ');" src="resources/images/eye-on.png" height="" /></a></div>     <div style="clear: both;"></div>  </div>');
+      
+      } 
+      if(enableLayers_2.length == 1){
+        $j('#layer-trash').hide();
+        $j('#layer-add').show();
+      }else if(enableLayers_2.length == 3){
+        $j('#layer-trash').show();
+        $j('#layer-add').hide();
+      }else{
+        $j('#layer-add').show();
+        $j('#layer-trash').show();
+      }
+      
+      /////////////////
+      json_front = JSON.stringify(paintAppGlobal.canvas);
+	
+      img_code_front = paintAppGlobal.canvas.toDataURL('png');
+	    paintAppGlobal.canvas.backgroundImage = '';
+   paintAppGlobal.canvas.overlayImage = null;
+    paintAppGlobal.canvas.renderAll();
+	// console.log(img_code_front);
+      paintAppGlobal.canvas.loadFromJSON(json_back.replace(/\n/g,"\\n"), function(){
+        paintAppGlobal.canvas.renderAll();
+        //alert(back_img);
+        setOverlayImageBack(back_img);
+        layer = 2;
+        selectLayer(enableLayers_2[0].id);
+      });    
+	//  console.log(img_code_back);
+    });
+           
+           jQuery("#zoom_in").click(function(){
+     toolbar.onZoomIn()
+   });
+   jQuery("#zoom_out").click(function(){
+    toolbar.onZoomOut()
+   });
+    jQuery("#rotato-right").click(function(){
+  
+      toolbar.onRotatoRight();
+      
+    });jQuery("#rotato-left").click(function(){
+        toolbar.onRotatoLeft();
+     // alert('sdfsdfs');
+    });jQuery("#layer-down").click(function(){
+      paintAppGlobal.layerDown();
+    });jQuery("#layer-up").click(function(){
+      paintAppGlobal.layerUp();
+    });
+            jQuery("#xcopy").click(function(){
+              //alert('asdada');
+              //var e = new initControls();
+              toolbar.onDelete();
+      //setDone();
+          
+      //console.log(JSON.stringify(paintAppGlobal.canvas));
+              });
+              $j('#redo').click(function(){
+           // alert('ddsdsds');
+        if(layer == 2){
+          
+          restoreState(redo2, undo2);
+        }else{
+            // alert('ddsdsds');
+          restoreState(redo1, undo1);
+        }
+      });
+  
+      $j('#undo').click(function(){
+        if(layer == 2){
+          restoreState(undo2, redo2);
+        }else{
+          restoreState(undo1, redo1);
+        }
+      });
+       //var now = new Date()
+  function addPriceArtText(price){price = ($mtkb("#input_price").val())*1 + price*1;convertPrice(price);};
+  function removePriceArtText(){price = ($mtkb("#input_price").val())*1 - 0;convertPrice(price);};
+          $j("#btnAddText").click(function(){paintAppGlobal.addText("0");//alert('sdfasdadada');
+          }); 
+  //console.log(now.getTime());
+  jQuery( "#accordion" ).accordion({
+              active: false,
+            collapsible: true,
+            heightStyle: "content"
+          });
+          
+      
+          } 
+          
+        jQuery(document).ready(function(){  
+      
+          //msgBoxImagePath = 'http://www.peopleschoiceapparel.com/Images/';
+      
+          
+          
+          
+          var  paintAppGlobal;
+          jQuery(".tooltip_item").tooltip();
+          jQuery(".tabbable" ).tabs({
+              active: false,
+              collapsible: true,
+            activate: function( event, ui ) {
+                  loadElementBottom($j(ui.newTab.context).attr('id'));
+                }
+              }
+            );
+        });
+             
+      $j(window).load(function(){
+          
+    });
+    
+ 
+       
+      </script>
+    <script type="text/javascript">
+  
+  
+  Event.observe(window, 'load', function(){
+         
+  });
+  </script>
+   
+    <script type="text/javascript">
+  
+  
+    
+    function changeCategory(id, e){
+      
+      $j('#categories-Selector li a').removeClass('cat-select-active');
+      $j(e).addClass('cat-select-active');
+      
+      var str1 = '<div id="list-products"><div id="list_image">' 
+      var str2 = '<div style="display: none;" class="tooltip_description" ><div id="price_value" class="tooltip_price"></div></div></div><div class="clear-both"></div>';
+      
+      
+      $j('#list-products').html('<img src="resources/images/loader.gif" class="img_load" />');
+      
+      
+          var str3 = '';
+      for(var i = 0; i < arr.length; i++)
+      {
+		  
+		  if(id == 0)
+		  {
+			   $j('#list-products').html(str1 + str2);
+              str3 =str3 + '<div size=' + arr[i][3] + ' style="width:75px;height:70px;" onClick="loadproduct();" index="' + i +'" class="frontside pslider select_product tooltip_item">' + '<img size=' + arr[i][3] + ' onClick="loadproduct();" style="width:71px;height:66px;" src="' + arr[i][0] + '" ' + 'class="img_load" /></div>';
+              
+                $j('#price_value').html(arr[i][2]);
+		  }
+		  else
+		  {
+		  
+		  
+		  
+		 //   alert(arr[i][4]);
+			//alert(id);
+             //  alert(arr[i][0]);
+          //allproduct += '';
+          if(parseInt(arr[i][4]) == id)
+          {
+			 // alert(arr[i][3]);
+             //  alert(arr[i][0]);
+              $j('#list-products').html(str1 + str2);
+              str3 =str3 + '<div size=' + arr[i][3] + ' style="width:75px;height:70px;" onClick="loadproduct();" index="' + i +'" class="frontside pslider select_product tooltip_item">' + '<img size=' + arr[i][3] + ' onClick="loadproduct();" style="width:71px;height:66px;" src="' + arr[i][0] + '" ' + 'class="img_load" /></div>';
+              
+                $j('#price_value').html(arr[i][2]);
+          }
+		  }
+      }
+      $j('#list_image').html(str3);
+      
+    }
+   
+  </script>
+    <script type="text/javascript">
+       function changeBg(e){
+      paintAppGlobal.selectBgImage($(e));
+      return false;
+    }
+    
+    function deleteBg(){
+      paintAppGlobal.canvas.backgroundImage = '';
+      paintAppGlobal.canvas.renderAll();
+      removePriceObject(paintAppGlobal.canvas.price_background);
+      paintAppGlobal.canvas.price_background = 0;
+     // setDone();
+      return false;
+    }
+   
+  </script>
+    <script type="text/javascript">
+    
+    function calldbclick(e){
+      s = e.getAttribute("data-type");
+      if(s == 'shape'){
+          //alert('calldb');
+        paintAppGlobal.addSVG(e.getAttribute("src"), e.getAttribute("price"));
+      }else{
+        paintAppGlobal.addImage(e.getAttribute("src"), e.getAttribute("price"));
+      }
+    }
+	 function load_temp1(index){
+		
+	
+
+	 var datacontent = alldata1[index].split("@");
+
+	var temp = datacontent[1].split("\n");
+	
+  		json_front =  temp[1];
+		 temp = datacontent[2].split("\n");
+		
+	json_back = temp[1];
+	
+	temp = datacontent[3].split("\n");
+	
+	img_code_front = temp[1];
+	
+	temp = datacontent[4].split("\n");
+	
+	img_code_back = temp[1];
+	
+	temp = datacontent[5].split("\n");
+	enableLayers_1 = [];
+	//alert(temp[1]);
+	enableLayers_1 = JSON.parse(temp[1]);
+	
+	temp = datacontent[6].split("\n");
+	enableLayers_2 = [];
+		//alert(temp[1]);
+	enableLayers_2 = JSON.parse(temp[1]);
+	
+	
+	
+	 temp = datacontent[7].split("\n");
+	var price_temp = temp[1];
+	
+	convertPrice(price_temp);
+	    if(layer == 2){
+        paintAppGlobal.canvas.loadFromJSON_api(json_back.replace(/\n/g,"\\n"), function(){
+        paintAppGlobal.canvas.renderAll();
+		//paintAppGlobal.canvas.loadJsonFront(json_front);
+        setOverlayImageBack(back_img);
+        layer = 2;
+		//console.log(enableLayers_2);
+        selectLayer(enableLayers_2[0].id);
+      });   
+      }else{
+          paintAppGlobal.canvas.loadFromJSON_api(json_front.replace(/\n/g,"\\n"), function(){
+        paintAppGlobal.canvas.renderAll();
+		// paintAppGlobal.canvas.loadJsonBack(json_back);
+        setOverlayImageFront(front_img);
+        layer = 1;
+       selectLayer(enableLayers_1[0].id);
+      });    
+      }
+	 // loadPrice(json_front,json_back);
+    } 
+  </script>
+    <script type="text/javascript">
+	
+	
+   var dataLoginForm = new VarienForm('login-form', true);
+    $j(function() {
+         
+            $j('#checkout_btn').trigger('click');
+
+    });
+    $j(function (){
+      $j('#dialog-form').hide();
+     
+  
+      
+    });
+    
+  function confirmSaveAndCheckout() {
+        if ($j(".size-item-selected").length == 0) {
+            jQuery.msgBox({
+                title: "Warning",
+                content: "Please select a size!",
+                buttons: [{value: "Ok"}],
+                success: function(result) {
+                    if ($j('#ui-accordion-accordion-header-1').attr('aria-selected') == 'false') {
+                        $j('#ui-accordion-accordion-header-1').trigger('click');
+                    }
+                }
+            });
+            return;
+        }
+ //alert('ccs');
+       var dataSizeForm = new VarienForm('form_size', true);
+       if (!dataSizeForm.validator || !dataSizeForm.validator.validate()) {
+           return;
+		//   alert('cc');
+       }
+		if($mtkb('#s').val() == "" && $mtkb('#m').val() == "" && $mtkb('#l').val() == "" && $mtkb('#xl').val() == "" && $mtkb('#1x').val() == "" && $mtkb('#2x').val() == "" && $mtkb('#3x').val() == "")
+		{
+			 jQuery.msgBox({
+                        title: "Error",
+                        content: "Choose quantity",
+                        type: "error"
+                    });
+		}
+		else if(isNaN(parseInt($mtkb('#s').val())) && isNaN(parseInt($mtkb('#m').val())) && isNaN(parseInt($mtkb('#l').val())) && isNaN(parseInt($mtkb('#xl').val())) && isNaN(parseInt($mtkb('#1x').val())) && isNaN(parseInt($mtkb('#2x').val())) && isNaN(parseInt($mtkb('#3x').val())))
+		{
+			 jQuery.msgBox({
+                        title: "Error",
+                        content: "the quantity must be a number",
+                        type: "error"
+                    });
+		}
+		else
+		{
+        jQuery.msgBox({
+            title: "Are You Sure",
+            inputs: [{header: "I have the rights to uses these images.", type: "checkbox", name: "confirm_check", value: "yes"},
+                {header: "<a href='#' >More Info</a>", type: "hidden", name: "hid", value: "yes"}],
+            content: "Do you want save current design?",
+            type: "prompt",
+            buttons: [{value: "Yes"}, {value: "No"}],
+            success: function(result, values) {
+                if (result == "Yes") {
+                    $(values).each(function(input, index) {
+                        if (input.name == "confirm_check") {
+                            if (input.checked != null && input.checked) {
+                                saveAndCheckout();
+                            } else {
+                                alert('You must confirm to continue.');
+                            }
+                            return;
+                        }
+                    });
+                } 
+            }
+        });
+		}
+    }
+
+
+     function saveAndCheckout() {
+	
+        jQuery('#modalPopLite-mask1').css('display','block');
+		// jQuery('#div_loader').css('display','block');
+		// jQuery('#progress_bar1').css('width',"100%");
+		//alert('start');
+        if (layer == 2) {
+            json_back = JSON.stringify(paintAppGlobal.canvas);
+        
+            paintAppGlobal.canvas.renderAll();
+            img_code_back = paintAppGlobal.canvas.discardActiveObject().toDataURL('png');
+            paintAppGlobal.canvas.loadFromJSON(json_back.replace(/\n/g, "\\n"), function() {
+                paintAppGlobal.canvas.renderAll();
+                setOverlayImageBack();
+            });
+        } else {
+            json_front = JSON.stringify(paintAppGlobal.canvas);
+         //   paintAppGlobal.canvas.backgroundImage = '';
+          //  paintAppGlobal.canvas.overlayImage = null;
+            paintAppGlobal.canvas.renderAll();
+            img_code_front = paintAppGlobal.canvas.discardActiveObject().toDataURL('png');
+            paintAppGlobal.canvas.loadFromJSON(json_front.replace(/\n/g, "\\n"), function() {
+                paintAppGlobal.canvas.renderAll();
+                setOverlayImageFront();
+            });
+        }
+	
+		
+		
+				var finished = 0;
+				var js_front = JSON.parse(json_front);
+				var js_back = JSON.parse(json_back);
+				var h_canvas = js_front.h_canvas;
+				var w_canvas = js_front.w_canvas;
+				var obj_front = new Object();
+				 obj_front.objects = [];
+				 obj_front.h_canvas = h_canvas;
+				 obj_front.w_canvas = w_canvas;
+				var obj_back = new Object();
+				obj_back.objects = [];
+				 obj_back.h_canvas = h_canvas;
+				 obj_back.w_canvas = w_canvas;
+				var bgb_obj = '';
+				var bgf_obj = '';
+				//var vt_obj = '';
+				//var fd_obj = '';
+				var path_obj = '';
+				var txt_obj = '';
+				
+				if(js_front.objects.length > 0)
+				{
+				for(var i = 0; i < js_front.objects.length; i++ )
+				{
+					if(js_front.objects[i].type == "image")
+					{
+						bgf_obj = new Object();
+						if(js_front.objects[i].isbackground == true)
+						{
+							bgf_obj.isbackground = true;
+						}
+					//	console.log(bg_obj);
+						bgf_obj.type = js_front.objects[i].type;
+						bgf_obj.top = js_front.objects[i].top;
+						bgf_obj.left = js_front.objects[i].left;
+						bgf_obj.scaleX = js_front.objects[i].scaleX;
+						bgf_obj.scaleY = js_front.objects[i].scaleY;
+						bgf_obj.height = js_front.objects[i].height;
+						bgf_obj.width = js_front.objects[i].width;
+						bgf_obj.angle = js_front.objects[i].angle;
+						bgf_obj.opacity = js_front.objects[i].opacity;
+						//bg_obj.src = js_front.objects[i].src;
+						if(js_front.objects[i].src.indexOf("base64") != -1)
+						{
+							bgf_obj.base64 = true;
+							var fname = 'front-' + 'mobile-' + device.name + '.png';
+								 $mtkb.ajax({
+  type: "post",
+  	url: 'http://www.peopleschoiceapparel.com/design/index/saveFloodFill',
+  data: { 
+     imgBase64: js_front.objects[i].src,imgName:fname
+  }
+								 }).done(function(e) {
+  //console.log('saved'); 
+ // console.log(e); 
+ 
+  finished++;
+ //  console.log(finished);
+ // if(finished == 2)
+ // {
+//	   ajaxCheckout(obj_front,obj_back);
+ // }
+  
+  });
+  
+  bgf_obj.src = 'http://www.peopleschoiceapparel.com/module_render/flood_fill/' + fname; 
+  obj_front.objects.push(bgf_obj);
+						}
+						else
+						{
+							bgf_obj.src = js_front.objects[i].src;
+							bgf_obj.base64 = false;
+							obj_front.objects.push(bgf_obj);
+						}
+						//console.log(bg_obj);
+						
+						
+					}
+					else if(js_front.objects[i].type == "text")
+					{
+						txt_obj = new Object();
+							txt_obj.type = js_front.objects[i].type;
+						txt_obj.top = js_front.objects[i].top;
+						txt_obj.left = js_front.objects[i].left;
+						txt_obj.scaleX = js_front.objects[i].scaleX;
+						txt_obj.scaleY = js_front.objects[i].scaleY;
+						txt_obj.height = js_front.objects[i].height;
+						txt_obj.width = js_front.objects[i].width;
+						txt_obj.angle = js_front.objects[i].angle;
+						txt_obj.opacity = js_front.objects[i].opacity;
+						//txt_obj.src = js_front.objects[i].src;
+						txt_obj.stroke = js_front.objects[i].stroke;
+						txt_obj.strokeWidth = js_front.objects[i].strokeWidth;
+						txt_obj.fill = js_front.objects[i].fill;
+						txt_obj.fontFamily = js_front.objects[i].fontFamily;
+						txt_obj.fontSize = js_front.objects[i].fontSize;
+						txt_obj.fontStyle = js_front.objects[i].fontStyle;
+						txt_obj.fontWeight = js_front.objects[i].fontWeight;
+						txt_obj.lineHeight = js_front.objects[i].lineHeight;
+						txt_obj.text = js_front.objects[i].text;
+						txt_obj.textDecoration = js_front.objects[i].textDecoration;
+						//txt_obj.opacity = obj_front.objects[i].src;
+						//txt_obj.src = obj_front.objects[i].src;
+						//console.log(txt_obj);
+						obj_front.objects.push(txt_obj);
+					}
+					else if(js_front.objects[i].type == "path" || js_front.objects[i].type == "path-group")
+					{
+						path_obj = new Object();
+							path_obj.type = js_front.objects[i].type;
+						path_obj.top = js_front.objects[i].top;
+						path_obj.left = js_front.objects[i].left;
+						path_obj.scaleX = js_front.objects[i].scaleX;
+						path_obj.scaleY = js_front.objects[i].scaleY;
+						path_obj.height = js_front.objects[i].height;
+						path_obj.width = js_front.objects[i].width;
+						path_obj.angle = js_front.objects[i].angle;
+						path_obj.opacity = js_front.objects[i].opacity;
+						if(js_front.objects[i].type == "path")
+						{
+						path_obj.path = js_front.objects[i].path;
+						}
+						else
+						{
+							path_obj.paths = js_front.objects[i].paths;
+						}
+						path_obj.fill = js_front.objects[i].fill;
+						path_obj.stroke = js_front.objects[i].stroke;
+						path_obj.strokeWidth = js_front.objects[i].strokeWidth;
+						obj_front.objects.push(path_obj);
+						
+					}
+				}
+				
+				}
+			//	else
+				//{
+				//	ajaxCheckout(obj_front,obj_back);
+				//}
+				/// bgf_obj = '';
+				 path_obj = '';
+				
+				 txt_obj = '';
+				////////////////////////////
+				if(js_back.objects.length > 0)
+				{
+				for(var i = 0; i < js_back.objects.length; i++ )
+				{
+					if(js_back.objects[i].type == 'image')
+					{
+						bgb_obj = new Object();
+						if(js_back.objects[i].isbackground == true)
+						{
+							bgb_obj.isbackground = true;
+						}
+						bgb_obj.type = js_back.objects[i].type;
+						bgb_obj.top = js_back.objects[i].top;
+						bgb_obj.left = js_back.objects[i].left;
+						bgb_obj.scaleX = js_back.objects[i].scaleX;
+						bgb_obj.scaleY = js_back.objects[i].scaleY;
+						bgb_obj.height = js_back.objects[i].height;
+						bgb_obj.width = js_back.objects[i].width;
+						bgb_obj.angle = js_back.objects[i].angle;
+						bgb_obj.opacity = js_back.objects[i].opacity;
+						
+						if(js_back.objects[i].src.indexOf("base64") != -1)
+						{
+							bgb_obj.base64 = true;
+							
+							var bname = 'back-' + 'mobile-' + device.name + '.png';
+							
+							 $mtkb.ajax({
+  type: "post",
+  	url: 'http://www.peopleschoiceapparel.com/design/index/saveFloodFill',
+  data: { 
+     imgBase64: js_back.objects[i].src,imgName: bname
+  }
+							 }).done(function(e) {
+  //console.log('saved'); 
+ // console.log(e); 
+ 
+   finished++;
+ //  console.log(finished);
+   // if(finished == 2 && i == js_back.objects.length -1)
+ // {
+	//  ajaxCheckout(obj_front,obj_back);
+ // }
+  });
+   bgb_obj.src = 'http://www.peopleschoiceapparel.com/module_render/flood_fill/' + bname;
+  obj_back.objects.push(bgb_obj);
+						}
+						else
+						{
+							bgb_obj.src = js_back.objects[i].src;
+							bgb_obj.base64 = false;
+							obj_back.objects.push(bgb_obj);
+						}
+						//obj_back.objects.push(bg_obj);
+					}
+					else if(js_back.objects[i].type == 'text')
+					{
+						txt_obj = new Object();
+						txt_obj.type = js_back.objects[i].type;
+						txt_obj.top = js_back.objects[i].top;
+						txt_obj.left = js_back.objects[i].left;
+						txt_obj.scaleX = js_back.objects[i].scaleX;
+						txt_obj.scaleY = js_back.objects[i].scaleY;
+						txt_obj.height = js_back.objects[i].height;
+						txt_obj.width = js_back.objects[i].width;
+						txt_obj.angle = js_back.objects[i].angle;
+						txt_obj.opacity = js_back.objects[i].opacity;
+						//txt_obj.src = js_back.objects[i].src;
+						txt_obj.stroke = js_back.objects[i].stroke;
+						txt_obj.strokeWidth = js_back.objects[i].strokeWidth;
+						txt_obj.fill = js_back.objects[i].fill;
+						txt_obj.fontFamily = js_back.objects[i].fontFamily;
+						txt_obj.fontSize = js_back.objects[i].fontSize;
+						txt_obj.fontStyle = js_back.objects[i].fontStyle;
+						txt_obj.fontWeight = js_back.objects[i].fontWeight;
+						txt_obj.lineHeight = js_back.objects[i].lineHeight;
+						txt_obj.text = js_back.objects[i].text;
+						txt_obj.textDecoration = js_back.objects[i].textDecoration;
+						//txt_obj.opacity = obj_front.objects[i].src;
+						//txt_obj.src = obj_front.objects[i].src;
+						obj_back.objects.push(txt_obj);
+					}
+					else if(js_back.objects[i].type == "path" || js_back.objects[i].type == "path-group")
+					{
+						path_obj = new Object();
+							path_obj.type = js_back.objects[i].type;
+						path_obj.top = js_back.objects[i].top;
+						path_obj.left = js_back.objects[i].left;
+						path_obj.scaleX = js_back.objects[i].scaleX;
+						path_obj.scaleY = js_back.objects[i].scaleY;
+						path_obj.height = js_back.objects[i].height;
+						path_obj.width = js_back.objects[i].width;
+						path_obj.angle = js_back.objects[i].angle;
+						path_obj.opacity = js_back.objects[i].opacity;
+						if(js_back.objects[i].type == "path")
+						{
+						path_obj.path = js_back.objects[i].path;
+						}
+						else
+						{
+							path_obj.paths = js_back.objects[i].paths;
+						}
+						path_obj.fill = js_back.objects[i].fill;
+						path_obj.stroke = js_back.objects[i].stroke;
+						path_obj.strokeWidth = js_back.objects[i].strokeWidth;
+						obj_back.objects.push(path_obj);
+						//if()
+						//{
+							
+						//}
+						
+					}
+				}
+				}
+		
+		
+        $mtkb.ajax({
+			url: 'http://www.peopleschoiceapparel.com/design/index/savefile',
+			
+           // url: 'http://www.peopleschoiceapparel.com/design/index/savedesignApp/',
+		   //url: 'http://local.beesightsoft.com/thor/beeadesign/index.php',
+           dataType: 'json',
+            type: 'post',
+			
+		
+			 data:$j('#form_size').serialize() + '&' + jQuery.param({
+                form_key: "",
+                dataJsonFront: encodeURIComponent(json_front),
+               dataJsonBack: encodeURIComponent(json_back),
+                imgCodeFront: img_code_front,
+                imgCodeBack: img_code_back,
+                product_id: $mtkb('#product_current').val(),
+                price: $mtkb('#input_price').val(),
+				save:1,
+				objFront:encodeURIComponent(JSON.stringify(obj_front)),
+				objBack:encodeURIComponent(JSON.stringify(obj_back)),
+				filedata: $j('#form_size').serialize() + '&' + jQuery.param({
+               	 form_key: "",
+               	 dataJsonFront:  encodeURIComponent(json_front),
+              		 dataJsonBack: encodeURIComponent(json_back),
+                	imgCodeFront: img_code_front,
+               	 imgCodeBack: img_code_back,
+				
+								 
+				  enablelayerFront: encodeURIComponent(JSON.stringify(enableLayers_1)),
+				 enablelayerBack: encodeURIComponent(JSON.stringify(enableLayers_2)),
+								
+               	 product_id: $mtkb('#product_current').val(),
+               	 price: $mtkb('#input_price').val(),
+					//save:1
+				
+				//file: $mtkb('#input_price').val()
+           })
+				//file: $mtkb('#input_price').val()
+           }),
+			
+		
+            success: function(data) {
+			
+                if (data.status == 'SUCCESS') {
+					  jQuery('#modalPopLite-mask1').css('display','none');
+					alert('SUCCESS');
+					var filename = '';
+				for(var i = 0; i < data.file.length; i++)
+				{
+					if(i == data.file.length - 1)
+					{
+					filename = filename  + data.file[i] ;
+					}
+					else
+					{
+						filename = filename  + data.file[i] + '~';
+					}
+				}
+
+              // window.open('http://www.peopleschoiceapparel.com/design/index/logouttemp?file=' + data.file,'_system');
+			  window.open('http://www.peopleschoiceapparel.com/customer/account/loginApp?file=' + filename,'_system');
+					//document.location.href = 'http://www.peopleschoiceapparel.com/customer/account/loginApp?file=' + data.file;
+                  
+                } else {
+						//alert('else success');
+					//alert('SUCCESS2');
+                    jQuery('#modalPopLite-mask1').css('display','none');
+                    jQuery.msgBox({
+                        title: "Error",
+                        content: data.message,
+                        type: "error"
+                    });
+                }
+            },
+            complete: function() {
+					 jQuery('#modalPopLite-mask1').css('display','none');
+				//alert('complete');
+               // $mtkb('#div_loader').hide();
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+				 jQuery('#modalPopLite-mask1').css('display','none');
+				//alert('error');
+              
+                jQuery.msgBox({
+                    title: "Error",
+                    content: "Request error, please try again!",
+                    type: "error"
+                });
+               // console.log(xhr);
+                 // alert(thrownError);
+            }
+        });
+    }
+
+  </script>
+  
+    <script type="text/javascript">
+   
+    
+    function setOverlayImageFront(a){
+       
+      paintAppGlobal.canvas.setOverlayImage(a, function(){
+        paintAppGlobal.canvas.renderAll();
+       
+      });
+    }
+    
+    function setOverlayImageBack(a){
+      
+   
+      paintAppGlobal.canvas.setOverlayImage(a, function(){
+          
+        paintAppGlobal.canvas.renderAll();
+      
+      }); 
+    }
+    function fliphoz(){
+    if(!paintAppGlobal.getCanvas().getActiveObject()) 
+      paintAppGlobal.getBackground().toggle('flipX');
+    else
+      paintAppGlobal.getCanvas().getActiveObject().toggle('flipX');
+    paintAppGlobal.getCanvas().renderAll();
+    saveStateLayer(undo);
+  }
+    function flipver(){
+    if(!paintAppGlobal.getCanvas().getActiveObject()) 
+      paintAppGlobal.getBackground().toggle('flipY');
+    else
+      paintAppGlobal.getCanvas().getActiveObject().toggle('flipY');
+    paintAppGlobal.getCanvas().renderAll();
+    saveStateLayer(undo);
+  }
+    function loadLayers(layers_1, layers_2 ){
+      layers_1 = [];
+      $j( ".layer-item" ).each(function( index ) {
+        layers_1.push($j(this).attr('id').replace('layer-', ''));
+      });
+       $j('#block-layer').html('');
+      for(var i = 0; i< layers_2.length; i++){
+        $j('#block-layer').append('<div onclick="selectLayer(' + layers_2[i] + ');" id="layer-' + layers_2[i] + '" class="even layer-item"><a href="javascript:void(0);">Layer ' + (layers_2[i]*1 + 1)*1 + '</a><a href="javascript:void(0);" class="eye eye-on"><img onclick="changeVisible(this, ' + layers_2[i] + ');" src="resources/images/eye-on.png" height="" /></a></div>');
+      }
+      selectLayer(layers_2[0]);
+      if(layers_2.length == 1){
+        $j('#layer-trash').hide();
+        $j('#layer-add').show();
+      }else if(layers_2.length == 3){
+        $j('#layer-trash').show();
+        $j('#layer-add').hide();
+      }
+    }
+  </script>
+    <script type="text/javascript">
+      
+    function getCurrentList(){
+      if(layer == 1)
+        return listGroup1;
+      else
+        return listGroup2;
+    }
+    
+    
+   function changeNameLayer(e , index){
+    //  listGroup = getCurrentList();
+    
+		
+		Ext.define('Kitchensink.view.Art12', {
+    extend: 'Ext.form.Panel',
+    alias : 'widget.Art12',
+     
+    config: {
+      
+     // We give it a left and top property
+     //to make it floating by default
+        left: 0,
+        top: 0,
+ 
+        // Make it modal so you can click the mask to hide the overlay
+        modal: true,
+	  // modal: false	,
+        hideOnMaskTap: true,
+		scrollable: false,
+ 
+        // Set the width and height of the panel
+        width: 300,
+        height: 115,
+     layout: {
+            type: 'vbox',
+			pack: 'left',
+        },
+        defaults: {
+            margin: '0 0 5 0',
+            labelWidth: '40%'
+        },
+        items: [
+		{
+			xtype:'textfield',
+			 margin: 10,
+			label:'File name',
+			placeholder:'Enter your layer name',
+			  listeners: {
+                        keyup: function (txt, evt) {
+                          filename = txt.getValue();
+						 // console.log(filename);
+							
+                        } 
+                    } 
+			},
+			{
+				xtype:'panel',
+													//style:'display:inline-block !important;',
+													layout:'hbox',
+													pack:'center',
+												//	margin: '5 0 5 46',
+													style:'center',
+													//height:60,
+													items:[
+													{
+												xtype:'button',
+												//cls:'x-button-normal x-button x-button-font x-sized x-layout-box-item',
+												//width:90,
+												margin:5,
+												height:30,
+												width:132,
+												//label: 'Quantity',
+												text:'Ok',
+												handler: function()
+												{
+													var cmp = jQuery('#layer-'+index);
+													setLayerName(cmp);
+													someForm1.destroy();
+											
+												}
+												
+												
+			},
+			{
+												xtype:'button',
+												margin:5,
+												height:30,
+												width:132,
+												//label: 'Quantity',
+												text:'Cancel',
+												handler: function()
+												{
+													//alert('items:' + items);
+												
+ someForm1.destroy();
+													
+													
+												}
+												// placeHolder: 'Enter quantity:',
+												
+			}
+													]
+													
+													},
+			
+
+
+
+        ]
+    }
+   
+});
+		
+		var someForm = Ext.Viewport.down('Art12');
+		//console.log(someForm);
+ //console.log(someForm);
+ var button = Ext.getCmp('block-layer-item');
+  if(!someForm){
+   someForm = Ext.widget('Art12');
+   //console.log(someForm);
+    someForm1 = someForm;
+   someForm.showBy(button);
+  }
+  else{
+  someForm.destroy();
+  }
+		
+		
+        //listGroup[index].hide();
+     
+    }
+    
+    function changeVisible(e , index){
+      listGroup = getCurrentList();
+      if($j(e).parent().hasClass('eye-on')){
+        $j(e).parent().removeClass('eye-on');
+        $j(e).parent().addClass('eye-off');
+        $j(e).attr('src', 'resources/images/eye-off.png ');
+        listGroup[index].hide();
+      }else{
+        $j(e).parent().removeClass('eye-off');
+        $j(e).parent().addClass('eye-on');
+        $j(e).attr('src', 'resources/images/eye-on.png ');
+        listGroup[index].show();
+      }
+    }
+    
+    function searchIndexLayer(listGroup){
+		//console.log(listGroup2);
+		//console.log(listGroup);
+      for(var i = 0; i< listGroup.length; i++){      
+        if(!listGroup[i].enable){
+          return i; 
+        }
+      }
+      return false;
+    }
+    
+    function searchIndexLayer_2(listGroup){
+      for(var i = 0; i< listGroup.length; i++){      
+        if(listGroup[i].enable){
+          return i; 
+        }
+      }
+      return false;
+    }
+    
+    function countLengthGroup(listGroup){
+      var c = 0;
+      for(var i = 0; i< listGroup.length; i++){      
+        if(listGroup[i].enable){
+          c++;
+        }
+      }
+      return c;
+    }
+    
+    function addLayer(index, listGroup){
+		//console.log(listGroup);
+      $j('.layer-item').removeClass('selected');
+      $j('#layer-tool').show();
+      if(index % 2 == 1){
+        cl = 'odd';
+      }else{
+        cl = 'even';
+      }
+      $j('#block-layer').prepend('<div class="layer-block-item"><div ondblclick="changeLayerName(this);" onclick="selectLayer(' + index + ');" id="layer-' + index + '" class="' + cl + ' layer-item selected layer_left"><a href="javascript:void(0);">Layer ' + (index + 1)*1 + '</a></div><div class="layer_eye"><a class="eye eye-on" href="javascript:void(0);"><img style="width:33px; height:22px;" src="resources/images/edit_black.png" onclick="changeNameLayer(this, '+ index +');"></a></div><div class="layer_eye"><a href="javascript:void(0);" class="eye eye-on"><img onclick="changeVisible(this, ' + index + ');" src="resources/images/eye-on.png" height="" /></a></div>                <div style="clear: both;"></div></div>');
+     
+      listGroup[index].enable = true;
+      listGroup[index].lock = false;
+      //listGroup[index].position = $j( ".layer-item" ).length;
+      current_group_layer = index;
+      listGroup[current_group_layer].selectEnabled();
+      selectLayer(current_group_layer);
+	  setDoneLayer();
+    }
+	
+	  function setDoneLayer()
+	{
+		//var numl = current_group_layer + 1;
+		   var l = paintAppGlobal.getCanvas();
+	 for(var i=0;i<l._objects.length;i++)
+	 {
+		// if(l._objects[i].groupLayer == current_group_layer)
+		 //{
+			 var valueHtml = jQuery('#layer-' + l._objects[i].groupLayer).children('a').html();
+			// console.log(valueHtml);
+	 l._objects[i].nameLayer = valueHtml;
+		 //}
+	 } 
+	}
+  
+    function selectLayer(index){
+      var listGroup = getCurrentList();
+      $j('.layer-item').removeClass('selected');
+      $j('#layer-' + index).addClass('selected');
+      current_group_layer = index;
+	 // console.log(current_group_layer);
+      listGroup[current_group_layer].selectEnabled();
+      if(listGroup[current_group_layer].lock){
+        $j('#layer-clock').addClass('layer-clocked');
+      }else{
+        $j('#layer-clock').removeClass('layer-clocked');
+      }
+    }  
+      
+    function getGroupIndexAddObject(e){
+      var listGroup = getCurrentList();
+      if(e.next().hasClass('layer-block-item')){
+        index = e.next().children(".layer-item").attr('id').replace('layer-', '');
+        if(!listGroup[index].hasObject()){
+          getGroupIndexAddObject(e.next());
+        }else{
+          return index;
+        }
+      }else{
+        return false;
+      }
+    }
+      
+    function getIndexAddObject(){
+      var listGroup = getCurrentList();
+   
+      var comp_index = (!getGroupIndexAddObject($j('.layer-block-item .selected').parent()))? current_group_layer:getGroupIndexAddObject($j('.layer-block-item .selected').parent());
+      
+      return listGroup[current_group_layer].getIndexAddObject(comp_index);
+    }
+    
+    function getIndexMoveObject(){
+      var listGroup = getCurrentList();
+      var comp_index = (!getGroupIndexAddObject($j('.layer-block-item .selected').parent()))? current_group_layer:getGroupIndexAddObject($j('.layer-block-item .selected').parent());
+      
+      return listGroup[current_group_layer].getIndexMoveObject(comp_index);
+    }
+      
+    function moveDownLayer(){
+      var listGroup = getCurrentList();
+      var layer_next = $j('#layer-' + current_group_layer).parent().next();
+      if(layer_next.hasClass('layer-block-item')){
+        var comp_index = getGroupIndexAddObject($j('.layer-block-item .selected').parent());
+        var layer_name =  $j('#layer-' + current_group_layer).children('a').html();
+        $j('#layer-' + current_group_layer).parent().remove();
+        
+        var index = current_group_layer;
+        if(index % 2 == 1){
+          cl = 'odd';
+        }else{
+          cl = 'even';
+        }
+        layer_next.after('<div class="layer-block-item"><div ondblclick="changeLayerName(this);" onclick="selectLayer(' + index + ');" id="layer-' + index + '" class="' + cl + ' layer-item selected layer_left"><a href="javascript:void(0);">' + layer_name + '</a></div> <div class="layer_eye"><a class="eye eye-on" href="javascript:void(0);"><img style="width:33px; height:22px;" src="resources/images/edit_black.png" onclick="changeNameLayer(this, '+ index +');"></a></div><div class="layer_eye"><a href="javascript:void(0);" class="eye eye-on"><img onclick="changeVisible(this, ' + index + ');" src="resources/images/eye-on.png" height="" /></a></div> <div style="clear: both;"></div></div>');
+        selectLayer(index);    
+        if(comp_index)
+          listGroup[index].moveToIndex(listGroup[comp_index].getIndexMoveUpDownObject());
+      }
+    }
+    
+    function moveUpLayer(){
+      var listGroup = getCurrentList();
+      var layer_prev = $j('#layer-' + current_group_layer).parent().prev();
+      if(layer_prev.hasClass('layer-block-item')){
+        var layer_name =  $j('#layer-' + current_group_layer).children('a').html();
+        $j('#layer-' + current_group_layer).parent().remove();
+        var index = current_group_layer;
+        if(index % 2 == 1){
+          cl = 'odd';
+        }else{
+          cl = 'even';
+        }
+        layer_prev.before('<div class="layer-block-item"><div ondblclick="changeLayerName(this);" onclick="selectLayer(' + index + ');" id="layer-' + index + '" class="' + cl + ' layer-item selected layer_left"><a href="javascript:void(0);">' + layer_name + '</a></div><div class="layer_eye"><a class="eye eye-on" href="javascript:void(0);"><img style="width:33px; height:22px;" src="resources/images/edit_black.png" onclick="changeNameLayer(this, '+ index +');"></a></div> <div class="layer_eye"><a href="javascript:void(0);" class="eye eye-on"><img onclick="changeVisible(this, ' + index + ');" src="resources/images/eye-on.png" height="" /></a></div>  <div style="clear: both;"></div></div>');
+        selectLayer(index);
+        var comp_index = getGroupIndexAddObject($j('.layer-block-item .selected').parent());
+        if(comp_index)
+          listGroup[comp_index].moveToIndex(listGroup[index].getIndexMoveUpDownObject());
+      }
+    }
+    
+    function lockGroupLayer(){
+      var listGroup = getCurrentList();
+      listGroup[current_group_layer].lock = !listGroup[current_group_layer].lock;
+      if(listGroup[current_group_layer].lock){
+        $j('#layer-clock').addClass('layer-clocked');
+        listGroup[current_group_layer].lockEvent();
+      }else{
+        $j('#layer-clock').removeClass('layer-clocked');
+         listGroup[current_group_layer].unLockEvent();
+      }
+    }
+    
+    function checkLockLayerCurrent(){
+      var listGroup = getCurrentList();
+      return listGroup[current_group_layer].lock;
+    }
+    
+	
+	
+    function getResultCanvasLayer(x, y, hex){
+      var listGroup = getCurrentList();
+   
+      var canvas_tmp = new fabric.Canvas('canvas_tmp');
+	//  console.log(listGroup[current_group_layer]);
+      var result_layer = listGroup[current_group_layer].resultCanvasLayer();
+	 //  console.log(result_layer);
+      //var json = '{"objects":[],"width":1470,"background":"rgba(0, 0, 0, 0)","height":605}';
+	   var json = result_layer.data;
+	 // console.log(json);
+      canvas_tmp.loadFromJSON(json.replace(/\n/g,"\\n"), function(){
+        canvas_tmp.renderAll();
+		//alert('saaaa');
+		 if(layer == 1)
+		 {
+          $j('#image_result_canvas_layer_front').attr('src', canvas_tmp.toDataURL('png'));
+		  paintBucketApp.init(document.getElementById("image_result_canvas_layer_front"), paintAppGlobal.canvas.getWidth(), paintAppGlobal.canvas.getHeight(), x, y, hex, 0, result_layer.price);
+		 }
+      else
+	  {
+         $j('#image_result_canvas_layer_back').attr('src', canvas_tmp.toDataURL('png'));
+		 paintBucketApp.init(document.getElementById("image_result_canvas_layer_back"), paintAppGlobal.canvas.getWidth(), paintAppGlobal.canvas.getHeight(), x, y, hex, 0, result_layer.price);
+	  }
+    
+     
+      });
+    }
+    function changeLayerName(e){
+     // var default_val = $j(e).children('a').html();
+     // $j(e).children('a').hide();
+    //  $j(e).prepend('<input type="text" maxlength="20" onblur="setLayerName(this);" style="padding: 0px; margin: 0px;" value="'+ filename  +'" />');
+     // $j(e).children('input').focus();
+	// setLayerName(e);
+    }
+    
+    function setLayerName(e){
+   // if($j(e).val() != '')
+	
+      $j(e).children('a').html(filename);
+	  ///////////////////
+	
+		      var l = paintAppGlobal.getCanvas();
+	 for(var i=0;i<l._objects.length;i++)
+	 {
+		 if(l._objects[i].groupLayer == current_group_layer)
+		 {
+	 l._objects[i].nameLayer = $j(e).val();
+		 }
+	 } 
+
+	////////////////////////////
+   // $j(e).next().show();
+   // $j(e).remove();
+  }
+  
+  </script>
+  
+    <script type="text/javascript">
+    $j('.select_bg_design').click(function(){
+    
+      paintAppGlobal.changeBgColor($j(this).css('background-color'));
+    });
+    
+    function resetBottomSlide(){
+      
+      if($j('#colors-block').css('display') == 'none'){
+        $j('#colors-block').show();
+      }
+     
+    }
+     function deleteBg(){
+  paintAppGlobal.deleteBackground();
+  
+  //setDone();
+  return false;
+  } 
+    
+   
+    $j('#bottom-slide-tab-sh').click(function(){
+      $j('#colors-block').slideToggle();
+      $j(this).toggleClass("active"); return false;
+    });
+  
+        $j('#bottom-slide-tab-sh').trigger('click');
+    
+    
+  </script>
+    <script type="text/javascript">
+   
+      $j('#left_content_right').css('top', $j('#step-contain').innerHeight() + 'px');
+    
+    
+      var undo1 = []; var undo2 = [];
+      var redo1 = []; var redo2 = [];
+      var listGroup = [new GroupLayer(true, 0), new GroupLayer(false, 1), new GroupLayer(false, 2)];
+      var current_group_layer = 0;
+  
+  
+      function saveStateLayer(){
+        if(layer == 2){
+           // alert('2');
+          saveState(undo2);
+        }else{
+           // alert('1');
+          saveState(undo1);
+        }
+      }
+  
+   
+  
+      function saveState(_history){
+       // setDone();
+        var data = [JSON.stringify(paintAppGlobal.canvas),$mtkb('#input_price').val(), $mtkb('#price_tag').html() ];
+       // console.log(data);
+        if(_history) _history.push(data);
+        else redo.push(data);
+        //alert('asdasdaccccc');
+      }
+  
+      function restoreState(pop, push){
+        if(pop.length == 0)
+          return;
+          //alert('asdasdaccccc');
+        saveState(push);
+        var restore_state = pop.pop();
+        fabric.Text.async = false;
+        paintAppGlobal.canvas.loadFromJSON(restore_state[0].replace(/\n/g,"\\n"), function(){});
+       // console.log(restore_state[0]);
+        $mtkb('#input_price').val(restore_state[1]);
+        $mtkb('#price_tag').html(restore_state[2]);
+        // console.log(JSON.stringify(paintAppGlobal.canvas));
+      }
+  
+      function convertPrice(price){
+        $mtkb('#input_price').val(price);
+		//console.log($mtkb('#input_price').val());
+          $mtkb('#price_tag').html('$' + price + '.00') ;
+      }
+  
+      function addPriceArtImage(a){
+          //console.log(a);
+        price = ($mtkb('#input_price').val())*1 + 1*a;
+        convertPrice(price);
+      }
+  
+      function removePriceObject(a){
+        price = ($mtkb('#input_price').val())*1 - 1*a;
+        convertPrice(price);
+      }
+  
+      function addPriceFreeDrawing(path){
+		//  console.log(path);
+        path.price = '6';
+        price = ($mtkb('#input_price').val())*1 + 1*6;
+        convertPrice(price);
+      }
+	
+    
+    </script>
+ 
+    </head>
+
+    <body >
+   
+	
+</body>
 </html>

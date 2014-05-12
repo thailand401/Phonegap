@@ -1,0 +1,97 @@
+
+#toolbar
+{
+	margin:0 0 0 0 !important;
+}
+
+.toolbar-icon  {
+	float: left;
+	/*margin:4px;*/
+	width: 45px !important;
+	height: 30px !important;
+	background-repeat:no-repeat;
+	background-position:center;
+}
+.toolbar-icon-small  {
+	float: left;
+	/*margin:4px;*/
+	background-repeat:no-repeat;
+	background-position:center;
+}
+.toolbar-button
+{
+	margin: 4px;
+	height: 28px !important;
+}
+.icon-empty{background-image: none !important	;	}
+.icon-drawsquare{background-image: url(../images/path_square.png) !important;	}
+.icon-drawcircle{background-image: url(../images/path_circle.png) !important;	}
+.icon-drawpen{background-image: url(../images/pencil.png) !important;	}
+.icon-drawline{background-image: url(../images/path_line.png)!important;	}
+.icon-cursor{background-image: url(../images/cursor.png) !important;	}
+
+.icon-drawimage{background-image: url(../images/picture.png) !important;	}
+.icon-drawshape{background-image: url(../images/shape.png) !important;	}
+.icon-drawtext{background-image: url(../images/text.png) !important;	}
+.icon-upload{background-image: url(../images/upload.png) !important	;	}
+
+.icon-zoom-in{background-image: url(../images/zoom_in.png) !important;	}
+.icon-zoom-out{background-image: url(../images/zoom_out.png) !important	;	}
+
+.icon-bin{background-image: url(../images/bin.png) !important;background-size: contain;	}
+.icon-lock{background-image: url(../images/lock.png) !important;background-size: contain;}
+.icon-unlock{background-image: url(../images/unlock.png) !important;background-size: contain;}
+.icon-bringtofront{background-image: url(../images/bringfront.png) !important;background-size: contain;}
+.icon-sendtoback{background-image: url(../images/sendback.png) !important;background-size: contain;}
+
+.icon-bold{background-image: url(../images/bold.png) !important; background-size: contain;}
+.icon-italic{background-image: url(../images/italic.png) !important; background-size: contain;}
+.icon-underline{background-image: url(../images/underline.png) !important;	background-size: contain;}
+
+.toolbar-group-left{float:left; height:47px; padding: 0px 12px 0px 12px; }
+.toolbar-group{float:left; height:47px; padding: 0px 16px 0px 12px;}
+/*.toolbar-text{margin-bottom: 8px; padding-bottom:8px;}*/
+.color-picker{
+	height: 22px;
+	width: 38px;
+	padding: 0!important;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	border: 0 solid #CCC;
+	cursor: pointer;
+	background-color:#0c0cd1;
+}
+.ui-toolbar-secondary{
+  padding: 7px 14px;
+  margin: 0 0 18px;
+  background-color: #777777;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#999999), to(#777777));
+  background-image: -moz-linear-gradient(top, #999999, #777777);
+  background-image: -ms-linear-gradient(top, #999999, #777777);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #999999), color-stop(100%, #777777));
+  background-image: -webkit-linear-gradient(top, #999999, #777777);
+  background-image: -o-linear-gradient(top, #999999, #777777);
+  background-image: linear-gradient(top, #999999, #777777);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#777777', GradientType=0);
+  border: 1px solid #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 #999999;
+  -moz-box-shadow: inset 0 1px 0 #999999;
+  box-shadow: inset 0 1px 0 #999999;
+}
+
+#opacitySlider{
+  background-image: url(../images/opacity.png);
+  background-repeat: repeat-x;
+  border: none;
+    max-width: 100%;
+}
+
+#opacitySlider a{  
+  background: no-repeat center !important;
+  border: none;
+  background-image: url(../images/a.png) !important;
+}
