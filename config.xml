@@ -57,7 +57,7 @@
     <gap:plugin name="File" value="org.apache.cordova.core.FileUtils" />
     <gap:plugin name="FileTransfer" value="org.apache.cordova.core.FileTransfer" />
     <gap:plugin name="NetworkStatus" value="org.apache.cordova.core.NetworkManager" />
-    <gap:plugin name="Battery" value="org.apache.cordova.core.BatteryListener" />
+
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi" />
     <gap:splash src="res/screen/android/screen-mdpi-portrait.png" gap:platform="android" gap:density="mdpi" />
