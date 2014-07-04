@@ -11,7 +11,7 @@
 <!--    <preference name="permissions" value="none"/> all: current version of PhoneGap 
  <preference name="permissions" value="full"/>
  <preference name="permissions" value="full-permissions"/>-->
- <feature name="http://api.phonegap.com/1.0/battery"/>
+<feature name="http://api.phonegap.com/1.0/battery"/>
 <feature name="http://api.phonegap.com/1.0/camera"/>
 <feature name="http://api.phonegap.com/1.0/contacts"/>
 <feature name="http://api.phonegap.com/1.0/file"/>
@@ -54,6 +54,10 @@
     <icon src="res/icon/windows-phone/icon-48.png" gap:platform="winphone" />
     <icon src="res/icon/windows-phone/icon-173.png" gap:platform="winphone" gap:role="background" />
 
+    <gap:plugin name="File" value="org.apache.cordova.core.FileUtils" />
+    <gap:plugin name="FileTransfer" value="org.apache.cordova.core.FileTransfer" />
+    <gap:plugin name="NetworkStatus" value="org.apache.cordova.core.NetworkManager" />
+    <gap:plugin name="Battery" value="org.apache.cordova.core.BatteryListener" />
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png" gap:platform="android" gap:density="ldpi" />
     <gap:splash src="res/screen/android/screen-mdpi-portrait.png" gap:platform="android" gap:density="mdpi" />
